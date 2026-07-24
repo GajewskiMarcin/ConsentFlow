@@ -117,7 +117,7 @@ class ConsentFlow extends Module
     {
         $this->name = 'consentflow';
         $this->tab = 'front_office_features';
-        $this->version = '1.0.3';
+        $this->version = '1.0.4';
         $this->author = 'Flavor';
         $this->need_instance = 0;
         $this->bootstrap = true;
@@ -262,6 +262,21 @@ class ConsentFlow extends Module
             $privacyUrl = $this->context->link->getCMSLink($privacyCmsId);
         }
 
+        // Detect whether the current page IS the designated privacy policy page.
+        // On that page we suppress the blocking consent screen so visitors can
+        // actually read the policy before deciding — the banner still appears on
+        // every other page.
+        $isPrivacyPage = false;
+        if ($privacyCmsId > 0) {
+            $controller = $this->context->controller;
+            if (isset($controller->php_self) && $controller->php_self === 'cms') {
+                $currentCmsId = (isset($controller->cms) && Validate::isLoadedObject($controller->cms))
+                    ? (int) $controller->cms->id
+                    : (int) Tools::getValue('id_cms');
+                $isPrivacyPage = ($currentCmsId === $privacyCmsId);
+            }
+        }
+
         // A/B test: determine variant for this visitor (sticky via cf_ab_variant cookie).
         // Random assignment only on first visit — persisted client-side so the same user
         // always sees the same variant across page loads (otherwise A/B stats are noise).
@@ -293,6 +308,7 @@ class ConsentFlow extends Module
             'logConsent' => (bool) Configuration::get('CONSENTFLOW_LOG_CONSENT'),
             'consentAjaxUrl' => $this->context->link->getModuleLink('consentflow', 'consent'),
             'privacyUrl' => $privacyUrl,
+            'isPrivacyPage' => $isPrivacyPage,
             'texts' => $texts,
             'cookies' => $cookies,
             // Appearance

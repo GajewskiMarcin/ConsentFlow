@@ -289,7 +289,9 @@
         // backdrop, the close button, or pressing Escape — the user must pick
         // Reject / Accept / Save. When reached via the floating button (visitor
         // already decided) the modal stays freely dismissible.
-        var forced = (readConsent() === null);
+        // Exception: on the privacy policy page we never force, so a visitor who
+        // opens preferences there can still close them and finish reading.
+        var forced = (readConsent() === null) && !cfg.isPrivacyPage;
 
         var closeBtnHtml = forced
             ? ''
@@ -754,7 +756,15 @@
         } else {
             // First visit — consent default (all denied) already emitted server-side
             processIframes(null);
-            renderBanner();
+            if (cfg.isPrivacyPage) {
+                // On the privacy policy page we must NOT block the page — the
+                // visitor needs to be able to read the policy before deciding.
+                // Offer the floating button as a non-blocking way to open
+                // preferences; the banner still appears on every other page.
+                renderFloatBtn();
+            } else {
+                renderBanner();
+            }
         }
     }
 
