@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="pl-PL" datatype="plaintext" original="modules/consentflow">
+    <body>
+      <!-- Tabs -->
+      <trans-unit id="settings">
+        <source>Settings</source>
+        <target>Ustawienia</target>
+      </trans-unit>
+      <trans-unit id="texts">
+        <source>Texts</source>
+        <target>Teksty</target>
+      </trans-unit>
+      <trans-unit id="cookie_definitions">
+        <source>Cookie Definitions</source>
+        <target>Definicje cookies</target>
+      </trans-unit>
+      <trans-unit id="consent_log">
+        <source>Consent Log</source>
+        <target>Dziennik zgód</target>
+      </trans-unit>
+
+      <!-- Settings: General -->
+      <trans-unit id="general_settings">
+        <source>General Settings</source>
+        <target>Ustawienia ogólne</target>
+      </trans-unit>
+      <trans-unit id="enable_module">
+        <source>Enable module</source>
+        <target>Włącz moduł</target>
+      </trans-unit>
+      <trans-unit id="master_switch_hint">
+        <source>Master switch — when off, no banner is shown and no assets are loaded.</source>
+        <target>Główny przełącznik — gdy wyłączony, baner nie jest wyświetlany i zasoby nie są ładowane.</target>
+      </trans-unit>
+      <trans-unit id="policy_version">
+        <source>Policy version</source>
+        <target>Wersja polityki</target>
+      </trans-unit>
+      <trans-unit id="policy_version_hint">
+        <source>Increment to force all users to re-consent.</source>
+        <target>Zwiększ, aby wymusić ponowną zgodę od wszystkich użytkowników.</target>
+      </trans-unit>
+      <trans-unit id="cookie_lifetime">
+        <source>Cookie lifetime (days)</source>
+        <target>Czas życia cookie (dni)</target>
+      </trans-unit>
+      <trans-unit id="banner_position">
+        <source>Banner position</source>
+        <target>Pozycja banera</target>
+      </trans-unit>
+      <trans-unit id="show_floating_button">
+        <source>Show floating button</source>
+        <target>Pokaż pływający przycisk</target>
+      </trans-unit>
+      <trans-unit id="floating_button_position">
+        <source>Floating button position</source>
+        <target>Pozycja pływającego przycisku</target>
+      </trans-unit>
+      <trans-unit id="google_consent_mode">
+        <source>Google Consent Mode v2</source>
+        <target>Google Consent Mode v2</target>
+      </trans-unit>
+      <trans-unit id="google_consent_hint">
+        <source>Fire gtag("consent","update",...) on every consent change.</source>
+        <target>Wywołuj gtag("consent","update",...) przy każdej zmianie zgody.</target>
+      </trans-unit>
+      <trans-unit id="show_functional">
+        <source>Show Functional category</source>
+        <target>Pokaż kategorię Funkcjonalne</target>
+      </trans-unit>
+      <trans-unit id="show_functional_hint">
+        <source>When off, functional cookies are bundled with necessary.</source>
+        <target>Gdy wyłączone, cookies funkcjonalne są łączone z niezbędnymi.</target>
+      </trans-unit>
+
+      <!-- Settings: Logging -->
+      <trans-unit id="logging_compliance">
+        <source>Logging &amp; Compliance</source>
+        <target>Logowanie i zgodność</target>
+      </trans-unit>
+      <trans-unit id="log_consent_db">
+        <source>Log consent to database</source>
+        <target>Zapisuj zgody w bazie danych</target>
+      </trans-unit>
+      <trans-unit id="log_retention">
+        <source>Log retention (days)</source>
+        <target>Czas przechowywania logów (dni)</target>
+      </trans-unit>
+      <trans-unit id="log_retention_hint">
+        <source>Logs older than this are automatically purged. Default: 730 days (2 years).</source>
+        <target>Logi starsze niż podana liczba dni są automatycznie usuwane. Domyślnie: 730 dni (2 lata).</target>
+      </trans-unit>
+      <trans-unit id="privacy_policy_page">
+        <source>Privacy policy page</source>
+        <target>Strona polityki prywatności</target>
+      </trans-unit>
+      <trans-unit id="save_settings">
+        <source>Save settings</source>
+        <target>Zapisz ustawienia</target>
+      </trans-unit>
+
+      <!-- Settings: Appearance -->
+      <trans-unit id="appearance">
+        <source>Appearance</source>
+        <target>Wygląd</target>
+      </trans-unit>
+      <trans-unit id="primary_color">
+        <source>Primary color</source>
+        <target>Kolor główny</target>
+      </trans-unit>
+      <trans-unit id="primary_color_hint">
+        <source>Accept button, toggles, links.</source>
+        <target>Przycisk akceptacji, przełączniki, linki.</target>
+      </trans-unit>
+      <trans-unit id="primary_hover">
+        <source>Primary hover</source>
+        <target>Kolor główny (hover)</target>
+      </trans-unit>
+      <trans-unit id="background_color">
+        <source>Background color</source>
+        <target>Kolor tła</target>
+      </trans-unit>
+      <trans-unit id="text_color">
+        <source>Text color</source>
+        <target>Kolor tekstu</target>
+      </trans-unit>
+      <trans-unit id="button_text_color">
+        <source>Button text color</source>
+        <target>Kolor tekstu przycisków</target>
+      </trans-unit>
+      <trans-unit id="border_radius">
+        <source>Border radius (px)</source>
+        <target>Zaokrąglenie rogów (px)</target>
+      </trans-unit>
+
+      <!-- Settings: Iframe Blocking -->
+      <trans-unit id="iframe_blocking">
+        <source>Iframe Blocking</source>
+        <target>Blokowanie iframe</target>
+      </trans-unit>
+      <trans-unit id="block_iframes">
+        <source>Block iframes until consent</source>
+        <target>Blokuj iframe do momentu wyrażenia zgody</target>
+      </trans-unit>
+      <trans-unit id="block_iframes_hint">
+        <source>Replace YouTube, Google Maps, and social embeds with a placeholder until marketing cookies are accepted. Iframes must have data-consentflow="marketing" attribute.</source>
+        <target>Zastępuje YouTube, Google Maps i social embeds placeholderem do momentu zaakceptowania cookies marketingowych. Iframe muszą mieć atrybut data-consentflow="marketing".</target>
+      </trans-unit>
+
+      <!-- Settings: A/B Testing -->
+      <trans-unit id="ab_testing">
+        <source>A/B Testing</source>
+        <target>Testy A/B</target>
+      </trans-unit>
+      <trans-unit id="enable_ab">
+        <source>Enable A/B testing</source>
+        <target>Włącz testy A/B</target>
+      </trans-unit>
+      <trans-unit id="enable_ab_hint">
+        <source>Randomly show banner in variant A (normal position) or B (alternative) to compare acceptance rates.</source>
+        <target>Losowo wyświetlaj baner w wariancie A (normalna pozycja) lub B (alternatywna), aby porównać współczynniki akceptacji.</target>
+      </trans-unit>
+      <trans-unit id="variant_a_position">
+        <source>Variant A position</source>
+        <target>Pozycja wariantu A</target>
+      </trans-unit>
+      <trans-unit id="variant_a_hint">
+        <source>Uses the main Banner position setting above.</source>
+        <target>Używa głównego ustawienia pozycji banera powyżej.</target>
+      </trans-unit>
+      <trans-unit id="variant_b_position">
+        <source>Variant B position</source>
+        <target>Pozycja wariantu B</target>
+      </trans-unit>
+      <trans-unit id="traffic_split">
+        <source>Traffic split (% for variant A)</source>
+        <target>Podział ruchu (% dla wariantu A)</target>
+      </trans-unit>
+      <trans-unit id="traffic_split_hint">
+        <source>50 = equal split. 70 = 70% variant A, 30% variant B.</source>
+        <target>50 = równy podział. 70 = 70% wariant A, 30% wariant B.</target>
+      </trans-unit>
+
+      <!-- Texts tab -->
+      <trans-unit id="banner_texts">
+        <source>Banner Texts</source>
+        <target>Teksty banera</target>
+      </trans-unit>
+      <trans-unit id="category_texts">
+        <source>Category Texts</source>
+        <target>Teksty kategorii</target>
+      </trans-unit>
+      <trans-unit id="save_texts">
+        <source>Save texts</source>
+        <target>Zapisz teksty</target>
+      </trans-unit>
+      <trans-unit id="banner_title_label">
+        <source>Banner title</source>
+        <target>Tytuł banera</target>
+      </trans-unit>
+      <trans-unit id="banner_text_label">
+        <source>Banner text</source>
+        <target>Treść banera</target>
+      </trans-unit>
+      <trans-unit id="accept_all_button">
+        <source>Accept All button</source>
+        <target>Przycisk Akceptuj wszystkie</target>
+      </trans-unit>
+      <trans-unit id="reject_all_button">
+        <source>Reject All button</source>
+        <target>Przycisk Odrzuć wszystkie</target>
+      </trans-unit>
+      <trans-unit id="preferences_button">
+        <source>Preferences button</source>
+        <target>Przycisk Ustawienia</target>
+      </trans-unit>
+      <trans-unit id="save_preferences_button">
+        <source>Save preferences button</source>
+        <target>Przycisk Zapisz preferencje</target>
+      </trans-unit>
+      <trans-unit id="floating_button_label">
+        <source>Floating button label</source>
+        <target>Etykieta pływającego przycisku</target>
+      </trans-unit>
+      <trans-unit id="privacy_link_text">
+        <source>Privacy policy link text</source>
+        <target>Tekst linku do polityki prywatności</target>
+      </trans-unit>
+      <trans-unit id="iframe_placeholder_text">
+        <source>Iframe placeholder text</source>
+        <target>Tekst placeholdera iframe</target>
+      </trans-unit>
+      <trans-unit id="iframe_placeholder_btn">
+        <source>Iframe placeholder button</source>
+        <target>Przycisk placeholdera iframe</target>
+      </trans-unit>
+      <trans-unit id="necessary_title">
+        <source>Necessary — title</source>
+        <target>Niezbędne — tytuł</target>
+      </trans-unit>
+      <trans-unit id="necessary_desc">
+        <source>Necessary — description</source>
+        <target>Niezbędne — opis</target>
+      </trans-unit>
+      <trans-unit id="analytics_title">
+        <source>Analytics — title</source>
+        <target>Analityczne — tytuł</target>
+      </trans-unit>
+      <trans-unit id="analytics_desc">
+        <source>Analytics — description</source>
+        <target>Analityczne — opis</target>
+      </trans-unit>
+      <trans-unit id="marketing_title">
+        <source>Marketing — title</source>
+        <target>Marketingowe — tytuł</target>
+      </trans-unit>
+      <trans-unit id="marketing_desc">
+        <source>Marketing — description</source>
+        <target>Marketingowe — opis</target>
+      </trans-unit>
+      <trans-unit id="functional_title">
+        <source>Functional — title</source>
+        <target>Funkcjonalne — tytuł</target>
+      </trans-unit>
+      <trans-unit id="functional_desc">
+        <source>Functional — description</source>
+        <target>Funkcjonalne — opis</target>
+      </trans-unit>
+      <trans-unit id="cookie_table_and_badges">
+        <source>Cookie Table &amp; Badges</source>
+        <target>Tabela cookies i etykiety</target>
+      </trans-unit>
+      <trans-unit id="always_active_badge">
+        <source>Always-active badge</source>
+        <target>Etykieta „Zawsze aktywne”</target>
+      </trans-unit>
+      <trans-unit id="table_cookie_column">
+        <source>Cookie table — Cookie column</source>
+        <target>Tabela cookies — kolumna Ciasteczko</target>
+      </trans-unit>
+      <trans-unit id="table_provider_column">
+        <source>Cookie table — Provider column</source>
+        <target>Tabela cookies — kolumna Dostawca</target>
+      </trans-unit>
+      <trans-unit id="table_duration_column">
+        <source>Cookie table — Duration column</source>
+        <target>Tabela cookies — kolumna Czas</target>
+      </trans-unit>
+      <trans-unit id="table_description_column">
+        <source>Cookie table — Description column</source>
+        <target>Tabela cookies — kolumna Opis</target>
+      </trans-unit>
+
+      <!-- Cookie Definitions tab -->
+      <trans-unit id="cookie_name">
+        <source>Cookie name</source>
+        <target>Nazwa cookie</target>
+      </trans-unit>
+      <trans-unit id="provider">
+        <source>Provider</source>
+        <target>Dostawca</target>
+      </trans-unit>
+      <trans-unit id="duration">
+        <source>Duration</source>
+        <target>Czas trwania</target>
+      </trans-unit>
+      <trans-unit id="add_cookie">
+        <source>Add cookie</source>
+        <target>Dodaj cookie</target>
+      </trans-unit>
+      <trans-unit id="add_first_cookie">
+        <source>Add first cookie</source>
+        <target>Dodaj pierwsze cookie</target>
+      </trans-unit>
+      <trans-unit id="no_cookie_defs">
+        <source>No cookie definitions yet.</source>
+        <target>Brak definicji cookies.</target>
+      </trans-unit>
+      <trans-unit id="add_cookie_definition">
+        <source>Add cookie definition</source>
+        <target>Dodaj definicję cookie</target>
+      </trans-unit>
+
+      <!-- Consent Log tab -->
+      <trans-unit id="export_csv">
+        <source>Export CSV</source>
+        <target>Eksportuj CSV</target>
+      </trans-unit>
+      <trans-unit id="purge_old">
+        <source>Purge old</source>
+        <target>Wyczyść stare</target>
+      </trans-unit>
+      <trans-unit id="filter">
+        <source>Filter</source>
+        <target>Filtruj</target>
+      </trans-unit>
+
+      <!-- Flash messages -->
+      <trans-unit id="settings_saved">
+        <source>Settings saved.</source>
+        <target>Ustawienia zapisane.</target>
+      </trans-unit>
+      <trans-unit id="texts_saved">
+        <source>Texts saved.</source>
+        <target>Teksty zapisane.</target>
+      </trans-unit>
+      <trans-unit id="cookie_def_saved">
+        <source>Cookie definition saved.</source>
+        <target>Definicja cookie zapisana.</target>
+      </trans-unit>
+      <trans-unit id="cookie_def_deleted">
+        <source>Cookie definition deleted.</source>
+        <target>Definicja cookie usunięta.</target>
+      </trans-unit>
+      <trans-unit id="cookie_def_not_found">
+        <source>Cookie definition not found.</source>
+        <target>Definicja cookie nie znaleziona.</target>
+      </trans-unit>
+      <trans-unit id="cookie_name_required">
+        <source>Cookie name is required.</source>
+        <target>Nazwa cookie jest wymagana.</target>
+      </trans-unit>
+      <trans-unit id="purge_result">
+        <source>Purged %count% old log entries.</source>
+        <target>Usunięto %count% starych wpisów z dziennika.</target>
+      </trans-unit>
+
+      <!-- Module meta -->
+      <trans-unit id="module_display_name">
+        <source>ConsentFlow — Cookie Consent</source>
+        <target>ConsentFlow — Zgody na cookies</target>
+      </trans-unit>
+      <trans-unit id="module_description">
+        <source>GDPR/ePrivacy compliant cookie consent module with Google Consent Mode v2 support.</source>
+        <target>Moduł zgód na cookies zgodny z GDPR/ePrivacy ze wsparciem Google Consent Mode v2.</target>
+      </trans-unit>
+
+      <!-- Support the author tab -->
+      <trans-unit id="support_the_author">
+        <source>Support the author</source>
+        <target>Wesprzyj autora</target>
+      </trans-unit>
+      <trans-unit id="support_tagline">
+        <source>GDPR cookie consent management with Google Consent Mode v2 for PrestaShop.</source>
+        <target>Zarządzanie zgodami na cookies zgodne z RODO, z Google Consent Mode v2 dla PrestaShop.</target>
+      </trans-unit>
+      <trans-unit id="support_features">
+        <source>Features</source>
+        <target>Funkcje</target>
+      </trans-unit>
+      <trans-unit id="support_feat_gcm_desc">
+        <source>Native gtag consent signals, emitted server-side and updated on every choice.</source>
+        <target>Natywne sygnały zgody gtag, wysyłane po stronie serwera i aktualizowane przy każdym wyborze.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_log">
+        <source>GDPR consent log</source>
+        <target>Dziennik zgód RODO</target>
+      </trans-unit>
+      <trans-unit id="support_feat_log_desc">
+        <source>Every consent stored with timestamp, IP and policy version — exportable to CSV.</source>
+        <target>Każda zgoda zapisana z datą, adresem IP i wersją polityki — z możliwością eksportu do CSV.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_banner">
+        <source>Customizable banner</source>
+        <target>Konfigurowalny baner</target>
+      </trans-unit>
+      <trans-unit id="support_feat_banner_desc">
+        <source>Bottom, top or center position, with your own colors, radius and texts.</source>
+        <target>Pozycja na dole, górze lub na środku, z własnymi kolorami, zaokrągleniem i tekstami.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_iframe">
+        <source>Iframe blocking</source>
+        <target>Blokowanie iframe</target>
+      </trans-unit>
+      <trans-unit id="support_feat_iframe_desc">
+        <source>YouTube, Google Maps and social embeds are blocked until consent is given.</source>
+        <target>YouTube, Mapy Google i osadzenia społecznościowe są blokowane do czasu wyrażenia zgody.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_multilang">
+        <source>Multi-language</source>
+        <target>Wielojęzyczność</target>
+      </trans-unit>
+      <trans-unit id="support_feat_multilang_desc">
+        <source>Every banner and modal text is editable per language.</source>
+        <target>Każdy tekst banera i okna można edytować osobno dla każdego języka.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_ab">
+        <source>A/B testing</source>
+        <target>Testy A/B</target>
+      </trans-unit>
+      <trans-unit id="support_feat_ab_desc">
+        <source>Compare banner positions to find the one with the best acceptance rate.</source>
+        <target>Porównuj pozycje banera, aby znaleźć tę z najwyższym wskaźnikiem akceptacji.</target>
+      </trans-unit>
+      <trans-unit id="support_getting_help">
+        <source>Getting help</source>
+        <target>Pomoc</target>
+      </trans-unit>
+      <trans-unit id="support_documentation">
+        <source>Documentation</source>
+        <target>Dokumentacja</target>
+      </trans-unit>
+      <trans-unit id="support_documentation_desc">
+        <source>Setup guides and integration notes on the GitHub Wiki.</source>
+        <target>Instrukcje konfiguracji i integracji na Wiki w serwisie GitHub.</target>
+      </trans-unit>
+      <trans-unit id="support_read_wiki">
+        <source>Read the Wiki</source>
+        <target>Przejdź do Wiki</target>
+      </trans-unit>
+      <trans-unit id="support_github_issues">
+        <source>GitHub Issues</source>
+        <target>Zgłoszenia GitHub</target>
+      </trans-unit>
+      <trans-unit id="support_github_issues_desc">
+        <source>Report a bug or request a new feature.</source>
+        <target>Zgłoś błąd lub zaproponuj nową funkcję.</target>
+      </trans-unit>
+      <trans-unit id="support_open_issue">
+        <source>Open an issue</source>
+        <target>Utwórz zgłoszenie</target>
+      </trans-unit>
+      <trans-unit id="support_discussions">
+        <source>Discussions</source>
+        <target>Dyskusje</target>
+      </trans-unit>
+      <trans-unit id="support_discussions_desc">
+        <source>Ask questions and share ideas with the community.</source>
+        <target>Zadawaj pytania i dziel się pomysłami ze społecznością.</target>
+      </trans-unit>
+      <trans-unit id="support_join_discussion">
+        <source>Join the discussion</source>
+        <target>Dołącz do dyskusji</target>
+      </trans-unit>
+      <trans-unit id="support_cta_desc">
+        <source>ConsentFlow is free and open-source. If it saves you time, consider supporting its development — thank you!</source>
+        <target>ConsentFlow jest darmowy i open-source. Jeśli oszczędza Ci czas, rozważ wsparcie jego rozwoju — dziękuję!</target>
+      </trans-unit>
+      <trans-unit id="support_buy_coffee">
+        <source>Buy me a coffee</source>
+        <target>Postaw mi kawę</target>
+      </trans-unit>
+      <trans-unit id="support_star_github">
+        <source>Star on GitHub</source>
+        <target>Zostaw gwiazdkę na GitHub</target>
+      </trans-unit>
+      <trans-unit id="support_system_information">
+        <source>System information</source>
+        <target>Informacje o systemie</target>
+      </trans-unit>
+      <trans-unit id="support_ps_version">
+        <source>PrestaShop version</source>
+        <target>Wersja PrestaShop</target>
+      </trans-unit>
+      <trans-unit id="support_php_version">
+        <source>PHP version</source>
+        <target>Wersja PHP</target>
+      </trans-unit>
+      <trans-unit id="support_module_version">
+        <source>Module version</source>
+        <target>Wersja modułu</target>
+      </trans-unit>
+      <trans-unit id="support_module_author">
+        <source>Module author</source>
+        <target>Autor modułu</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

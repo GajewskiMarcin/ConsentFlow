@@ -1,0 +1,49 @@
+consentflow_configuration:
+    path: /consentflow/configuration
+    methods: [GET, POST]
+    defaults:
+        _controller: 'Flavor\ConsentFlow\Controller\Admin\ConsentFlowController::indexAction'
+        _legacy_controller: AdminConsentFlow
+        _legacy_link: AdminConsentFlow
+
+consentflow_cookie_save:
+    path: /consentflow/cookie/save
+    methods: [POST]
+    defaults:
+        _controller: 'Flavor\ConsentFlow\Controller\Admin\ConsentFlowController::saveCookieAction'
+        _legacy_controller: AdminConsentFlow
+        _legacy_link: AdminConsentFlow:saveCookie
+
+consentflow_cookie_delete:
+    path: /consentflow/cookie/delete/{id}
+    methods: [POST]
+    defaults:
+        _controller: 'Flavor\ConsentFlow\Controller\Admin\ConsentFlowController::deleteCookieAction'
+        _legacy_controller: AdminConsentFlow
+        _legacy_link: AdminConsentFlow:deleteCookie
+    requirements:
+        id: \d+
+
+consentflow_log_list:
+    path: /consentflow/logs
+    methods: [GET]
+    defaults:
+        _controller: 'Flavor\ConsentFlow\Controller\Admin\ConsentFlowController::logsAction'
+        _legacy_controller: AdminConsentFlow
+        _legacy_link: AdminConsentFlow:logs
+
+consentflow_log_export:
+    path: /consentflow/logs/export
+    methods: [GET]
+    defaults:
+        _controller: 'Flavor\ConsentFlow\Controller\Admin\ConsentFlowController::exportLogsAction'
+        _legacy_controller: AdminConsentFlow
+        _legacy_link: AdminConsentFlow:exportLogs
+
+consentflow_log_purge:
+    path: /consentflow/logs/purge
+    methods: [POST]
+    defaults:
+        _controller: 'Flavor\ConsentFlow\Controller\Admin\ConsentFlowController::purgeLogsAction'
+        _legacy_controller: AdminConsentFlow
+        _legacy_link: AdminConsentFlow:purgeLogs

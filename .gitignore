@@ -1,0 +1,19 @@
+# OS & editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Claude Code local config
+.claude/
+
+# Logs & temp
+*.log
+
+# Node (asset tooling, if ever added)
+node_modules/
+
+# Composer binary — vendor/ IS committed so the module installs without `composer install`
+composer.phar

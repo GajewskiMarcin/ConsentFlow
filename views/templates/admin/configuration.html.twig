@@ -1,0 +1,984 @@
+{% extends '@PrestaShop/Admin/layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ adminCssPath }}?v={{ moduleVersion }}">
+{% endblock %}
+
+{% block content %}
+<div class="cf-module-wrapper">
+
+    {# ─── TABS (JS-based, no page reload) ─── #}
+    <div class="cf-tabs-container">
+        <button type="button" class="cf-tab cf-tab-active" data-cf-tab="settings">
+            <i class="material-icons">settings</i> {{ 'Settings'|trans({}, 'Modules.Consentflow.Admin') }}
+        </button>
+        <button type="button" class="cf-tab" data-cf-tab="texts">
+            <i class="material-icons">translate</i> {{ 'Texts'|trans({}, 'Modules.Consentflow.Admin') }}
+        </button>
+        <button type="button" class="cf-tab" data-cf-tab="cookies">
+            <i class="material-icons">list_alt</i> {{ 'Cookie Definitions'|trans({}, 'Modules.Consentflow.Admin') }}
+        </button>
+        <button type="button" class="cf-tab" data-cf-tab="logs">
+            <i class="material-icons">history</i> {{ 'Consent Log'|trans({}, 'Modules.Consentflow.Admin') }}
+            <span class="cf-badge">{{ logCount }}</span>
+        </button>
+        <button type="button" class="cf-tab" data-cf-tab="support">
+            <i class="material-icons">favorite</i> {{ 'Support the author'|trans({}, 'Modules.Consentflow.Admin') }}
+        </button>
+    </div>
+
+    {# ─── FLASH MESSAGES ─── #}
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="cf-alert cf-alert--{{ type }}">
+                {{ message }}
+                <button type="button" class="cf-alert__close" onclick="this.parentElement.remove()">&times;</button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {# ============================================================
+       TAB 1: SETTINGS
+       ============================================================ #}
+    <div data-cf-panel="settings">
+    <form method="post" action="{{ path('consentflow_configuration') }}">
+        <input type="hidden" name="cf_tab" value="settings">
+        <input type="hidden" name="_token" value="{{ csrf_token('consentflow') }}">
+
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">tune</i> {{ 'General Settings'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+
+                {# Enable module #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Enable module'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_ENABLED" value="1" {% if settings.CONSENTFLOW_ENABLED == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                        <span class="cf-form-hint">{{ 'Master switch — when off, no banner is shown and no assets are loaded.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+
+                {# Policy version #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Policy version'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <input type="number" name="CONSENTFLOW_POLICY_VERSION" value="{{ settings.CONSENTFLOW_POLICY_VERSION }}" min="1" class="cf-input cf-input--sm">
+                        <span class="cf-form-hint">{{ 'Increment to force all users to re-consent.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+
+                {# Cookie lifetime #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Cookie lifetime (days)'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <input type="number" name="CONSENTFLOW_COOKIE_LIFETIME" value="{{ settings.CONSENTFLOW_COOKIE_LIFETIME }}" min="1" max="730" class="cf-input cf-input--sm">
+                    </div>
+                </div>
+
+                {# Banner position #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Banner position'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <select name="CONSENTFLOW_BANNER_POSITION" class="cf-select">
+                            <option value="bottom" {% if settings.CONSENTFLOW_BANNER_POSITION == 'bottom' %}selected{% endif %}>Bottom</option>
+                            <option value="top" {% if settings.CONSENTFLOW_BANNER_POSITION == 'top' %}selected{% endif %}>Top</option>
+                            <option value="center" {% if settings.CONSENTFLOW_BANNER_POSITION == 'center' %}selected{% endif %}>Center (Modal)</option>
+                        </select>
+                    </div>
+                </div>
+
+                {# Show floating button #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Show floating button'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_SHOW_FLOAT_BTN" value="1" {% if settings.CONSENTFLOW_SHOW_FLOAT_BTN == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                {# Float button position #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Floating button position'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <select name="CONSENTFLOW_FLOAT_BTN_POSITION" class="cf-select">
+                            <option value="bottom-left" {% if settings.CONSENTFLOW_FLOAT_BTN_POSITION == 'bottom-left' %}selected{% endif %}>Bottom-left</option>
+                            <option value="bottom-right" {% if settings.CONSENTFLOW_FLOAT_BTN_POSITION == 'bottom-right' %}selected{% endif %}>Bottom-right</option>
+                        </select>
+                    </div>
+                </div>
+
+                {# Google Consent Mode #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Google Consent Mode v2'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_GOOGLE_CONSENT" value="1" {% if settings.CONSENTFLOW_GOOGLE_CONSENT == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                        <span class="cf-form-hint">{{ 'Fire gtag("consent","update",...) on every consent change.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+
+                {# Show functional category #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Show Functional category'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_SHOW_FUNCTIONAL" value="1" {% if settings.CONSENTFLOW_SHOW_FUNCTIONAL == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                        <span class="cf-form-hint">{{ 'When off, functional cookies are bundled with necessary.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save settings'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">storage</i> {{ 'Logging & Compliance'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+
+                {# Log consent #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Log consent to database'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_LOG_CONSENT" value="1" {% if settings.CONSENTFLOW_LOG_CONSENT == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                {# Log retention #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Log retention (days)'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <input type="number" name="CONSENTFLOW_LOG_RETENTION" value="{{ settings.CONSENTFLOW_LOG_RETENTION }}" min="30" max="3650" class="cf-input cf-input--sm">
+                        <span class="cf-form-hint">{{ 'Logs older than this are automatically purged. Default: 730 days (2 years).'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+
+                {# Privacy policy CMS page #}
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Privacy policy page'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <select name="CONSENTFLOW_PRIVACY_CMS_ID" class="cf-select">
+                            <option value="0">— {{ 'None'|trans({}, 'Admin.Global') }} —</option>
+                            {% for page in cmsPages %}
+                                <option value="{{ page.id_cms }}" {% if settings.CONSENTFLOW_PRIVACY_CMS_ID == page.id_cms %}selected{% endif %}>{{ page.meta_title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save settings'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+
+        {# ── Appearance Card ── #}
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">palette</i> {{ 'Appearance'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Primary color'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control cf-color-row">
+                        <input type="color" name="CONSENTFLOW_COLOR_PRIMARY" value="{{ settings.CONSENTFLOW_COLOR_PRIMARY|default('#2563eb') }}" class="cf-color-input">
+                        <input type="text" value="{{ settings.CONSENTFLOW_COLOR_PRIMARY|default('#2563eb') }}" class="cf-input cf-input--sm cf-color-text" data-color-for="CONSENTFLOW_COLOR_PRIMARY" pattern="^#[0-9a-fA-F]{6}$">
+                        <span class="cf-form-hint">{{ 'Accept button, toggles, links.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Primary hover'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control cf-color-row">
+                        <input type="color" name="CONSENTFLOW_COLOR_PRIMARY_HOVER" value="{{ settings.CONSENTFLOW_COLOR_PRIMARY_HOVER|default('#1d4ed8') }}" class="cf-color-input">
+                        <input type="text" value="{{ settings.CONSENTFLOW_COLOR_PRIMARY_HOVER|default('#1d4ed8') }}" class="cf-input cf-input--sm cf-color-text" data-color-for="CONSENTFLOW_COLOR_PRIMARY_HOVER" pattern="^#[0-9a-fA-F]{6}$">
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Background color'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control cf-color-row">
+                        <input type="color" name="CONSENTFLOW_COLOR_BG" value="{{ settings.CONSENTFLOW_COLOR_BG|default('#ffffff') }}" class="cf-color-input">
+                        <input type="text" value="{{ settings.CONSENTFLOW_COLOR_BG|default('#ffffff') }}" class="cf-input cf-input--sm cf-color-text" data-color-for="CONSENTFLOW_COLOR_BG" pattern="^#[0-9a-fA-F]{6}$">
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Text color'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control cf-color-row">
+                        <input type="color" name="CONSENTFLOW_COLOR_TEXT" value="{{ settings.CONSENTFLOW_COLOR_TEXT|default('#1f2937') }}" class="cf-color-input">
+                        <input type="text" value="{{ settings.CONSENTFLOW_COLOR_TEXT|default('#1f2937') }}" class="cf-input cf-input--sm cf-color-text" data-color-for="CONSENTFLOW_COLOR_TEXT" pattern="^#[0-9a-fA-F]{6}$">
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Button text color'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control cf-color-row">
+                        <input type="color" name="CONSENTFLOW_COLOR_BTN_TEXT" value="{{ settings.CONSENTFLOW_COLOR_BTN_TEXT|default('#ffffff') }}" class="cf-color-input">
+                        <input type="text" value="{{ settings.CONSENTFLOW_COLOR_BTN_TEXT|default('#ffffff') }}" class="cf-input cf-input--sm cf-color-text" data-color-for="CONSENTFLOW_COLOR_BTN_TEXT" pattern="^#[0-9a-fA-F]{6}$">
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Border radius (px)'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <input type="number" name="CONSENTFLOW_BORDER_RADIUS" value="{{ settings.CONSENTFLOW_BORDER_RADIUS|default('8') }}" min="0" max="24" class="cf-input cf-input--sm">
+                    </div>
+                </div>
+            </div>
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save settings'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+
+        {# ── Iframe Blocking Card ── #}
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">web_asset</i> {{ 'Iframe Blocking'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Block iframes until consent'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_IFRAME_BLOCKING" value="1" {% if settings.CONSENTFLOW_IFRAME_BLOCKING == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                        <span class="cf-form-hint">{{ 'Replace YouTube, Google Maps, and social embeds with a placeholder until marketing cookies are accepted. Iframes must have data-consentflow="marketing" attribute.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save settings'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+
+        {# ── A/B Testing Card ── #}
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">science</i> {{ 'A/B Testing'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Enable A/B testing'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <label class="cf-toggle">
+                            <input type="checkbox" name="CONSENTFLOW_AB_ENABLED" value="1" {% if settings.CONSENTFLOW_AB_ENABLED == '1' %}checked{% endif %}>
+                            <span class="cf-toggle__slider"></span>
+                        </label>
+                        <span class="cf-form-hint">{{ 'Randomly show banner in variant A (normal position) or B (alternative) to compare acceptance rates.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Variant A position'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <span class="cf-form-hint">{{ 'Uses the main Banner position setting above.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Variant B position'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <select name="CONSENTFLOW_AB_VARIANT_B_POSITION" class="cf-select">
+                            <option value="bottom" {% if settings.CONSENTFLOW_AB_VARIANT_B_POSITION == 'bottom' %}selected{% endif %}>Bottom</option>
+                            <option value="top" {% if settings.CONSENTFLOW_AB_VARIANT_B_POSITION == 'top' %}selected{% endif %}>Top</option>
+                            <option value="center" {% if settings.CONSENTFLOW_AB_VARIANT_B_POSITION == 'center' %}selected{% endif %}>Center (Modal)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="cf-form-group">
+                    <label class="cf-label">{{ 'Traffic split (% for variant A)'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                    <div class="cf-form-control">
+                        <input type="number" name="CONSENTFLOW_AB_SPLIT" value="{{ settings.CONSENTFLOW_AB_SPLIT|default('50') }}" min="10" max="90" class="cf-input cf-input--sm">
+                        <span class="cf-form-hint">{{ '50 = equal split. 70 = 70% variant A, 30% variant B.'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save settings'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+    </form>
+
+    {# ============================================================
+       TAB 2: TEXTS
+       ============================================================ #}
+    </div>{# /settings panel #}
+
+    <div data-cf-panel="texts" style="display:none">
+    <form method="post" action="{{ path('consentflow_configuration') }}">
+        <input type="hidden" name="cf_tab" value="texts">
+        <input type="hidden" name="_token" value="{{ csrf_token('consentflow') }}">
+
+        {# Language selector #}
+        <div class="cf-lang-selector">
+            {% for lang in languages %}
+                <button type="button" class="cf-lang-btn{% if lang.id_lang == currentLangId %} cf-lang-btn--active{% endif %}" data-lang-id="{{ lang.id_lang }}">
+                    {{ lang.iso_code|upper }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">text_fields</i> {{ 'Banner Texts'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                {% set bannerFields = {
+                    'CONSENTFLOW_BANNER_TITLE': 'Banner title',
+                    'CONSENTFLOW_BANNER_TEXT': 'Banner text',
+                    'CONSENTFLOW_BTN_ACCEPT_ALL': 'Accept All button',
+                    'CONSENTFLOW_BTN_REJECT_ALL': 'Reject All button',
+                    'CONSENTFLOW_BTN_PREFERENCES': 'Preferences button',
+                    'CONSENTFLOW_BTN_SAVE': 'Save preferences button',
+                    'CONSENTFLOW_FLOAT_BTN_LABEL': 'Floating button label',
+                    'CONSENTFLOW_PRIVACY_LINK_TEXT': 'Privacy policy link text',
+                    'CONSENTFLOW_IFRAME_PLACEHOLDER_TEXT': 'Iframe placeholder text',
+                    'CONSENTFLOW_IFRAME_PLACEHOLDER_BTN': 'Iframe placeholder button'
+                } %}
+
+                {% for key, label in bannerFields %}
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ label|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                        <div class="cf-form-control">
+                            {% for lang in languages %}
+                                <div class="cf-lang-field" data-lang-id="{{ lang.id_lang }}" {% if lang.id_lang != currentLangId %}style="display:none"{% endif %}>
+                                    {% if key == 'CONSENTFLOW_BANNER_TEXT' %}
+                                        <textarea name="{{ key }}_{{ lang.id_lang }}" class="cf-textarea" rows="3">{{ texts[key][lang.id_lang]|default('') }}</textarea>
+                                    {% else %}
+                                        <input type="text" name="{{ key }}_{{ lang.id_lang }}" value="{{ texts[key][lang.id_lang]|default('') }}" class="cf-input">
+                                    {% endif %}
+                                    <span class="cf-lang-indicator">{{ lang.iso_code|upper }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">category</i> {{ 'Category Texts'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                {% set catFields = {
+                    'CONSENTFLOW_CAT_NECESSARY_TITLE': 'Necessary — title',
+                    'CONSENTFLOW_CAT_NECESSARY_DESC': 'Necessary — description',
+                    'CONSENTFLOW_CAT_ANALYTICS_TITLE': 'Analytics — title',
+                    'CONSENTFLOW_CAT_ANALYTICS_DESC': 'Analytics — description',
+                    'CONSENTFLOW_CAT_MARKETING_TITLE': 'Marketing — title',
+                    'CONSENTFLOW_CAT_MARKETING_DESC': 'Marketing — description',
+                    'CONSENTFLOW_CAT_FUNCTIONAL_TITLE': 'Functional — title',
+                    'CONSENTFLOW_CAT_FUNCTIONAL_DESC': 'Functional — description'
+                } %}
+
+                {% for key, label in catFields %}
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ label|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                        <div class="cf-form-control">
+                            {% for lang in languages %}
+                                <div class="cf-lang-field" data-lang-id="{{ lang.id_lang }}" {% if lang.id_lang != currentLangId %}style="display:none"{% endif %}>
+                                    {% if 'DESC' in key %}
+                                        <textarea name="{{ key }}_{{ lang.id_lang }}" class="cf-textarea" rows="2">{{ texts[key][lang.id_lang]|default('') }}</textarea>
+                                    {% else %}
+                                        <input type="text" name="{{ key }}_{{ lang.id_lang }}" value="{{ texts[key][lang.id_lang]|default('') }}" class="cf-input">
+                                    {% endif %}
+                                    <span class="cf-lang-indicator">{{ lang.iso_code|upper }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save texts'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">table_chart</i> {{ 'Cookie Table & Badges'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                {% set tableFields = {
+                    'CONSENTFLOW_CAT_ALWAYS_ACTIVE': 'Always-active badge',
+                    'CONSENTFLOW_TABLE_COOKIE': 'Cookie table — Cookie column',
+                    'CONSENTFLOW_TABLE_PROVIDER': 'Cookie table — Provider column',
+                    'CONSENTFLOW_TABLE_DURATION': 'Cookie table — Duration column',
+                    'CONSENTFLOW_TABLE_DESCRIPTION': 'Cookie table — Description column'
+                } %}
+
+                {% for key, label in tableFields %}
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ label|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                        <div class="cf-form-control">
+                            {% for lang in languages %}
+                                <div class="cf-lang-field" data-lang-id="{{ lang.id_lang }}" {% if lang.id_lang != currentLangId %}style="display:none"{% endif %}>
+                                    <input type="text" name="{{ key }}_{{ lang.id_lang }}" value="{{ texts[key][lang.id_lang]|default('') }}" class="cf-input">
+                                    <span class="cf-lang-indicator">{{ lang.iso_code|upper }}</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="cf-card__footer">
+                <button type="submit" class="cf-btn cf-btn--primary">
+                    <i class="material-icons">save</i> {{ 'Save texts'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+        </div>
+    </form>
+
+    {# ============================================================
+       TAB 3: COOKIE DEFINITIONS
+       ============================================================ #}
+    </div>{# /texts panel #}
+
+    <div data-cf-panel="cookies" style="display:none">
+    <div class="cf-card">
+        <div class="cf-card__header cf-card__header--flex">
+            <span><i class="material-icons">list_alt</i> {{ 'Cookie Definitions'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+            <button type="button" class="cf-btn cf-btn--primary cf-btn--sm" onclick="cfShowCookieForm()">
+                <i class="material-icons">add</i> {{ 'Add cookie'|trans({}, 'Modules.Consentflow.Admin') }}
+            </button>
+        </div>
+        <div class="cf-card__body cf-card__body--no-padding">
+            {% if cookieDefs|length > 0 %}
+            <table class="cf-table">
+                <thead>
+                    <tr>
+                        <th style="width:60px">#</th>
+                        <th>{{ 'Category'|trans({}, 'Admin.Global') }}</th>
+                        <th>{{ 'Cookie name'|trans({}, 'Modules.Consentflow.Admin') }}</th>
+                        <th>{{ 'Provider'|trans({}, 'Modules.Consentflow.Admin') }}</th>
+                        <th>{{ 'Duration'|trans({}, 'Modules.Consentflow.Admin') }}</th>
+                        <th style="width:120px">{{ 'Actions'|trans({}, 'Admin.Global') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cookie in cookieDefs %}
+                    <tr>
+                        <td><span class="cf-id-badge">{{ cookie.id_cookie_def }}</span></td>
+                        <td><span class="cf-category-badge cf-category-badge--{{ cookie.category }}">{{ cookie.category }}</span></td>
+                        <td><strong>{{ cookie.cookie_name }}</strong></td>
+                        <td>{{ cookie.provider }}</td>
+                        <td>{{ cookie.duration }}</td>
+                        <td>
+                            <div class="cf-actions">
+                                <button type="button" class="cf-action-btn" title="Edit" onclick="cfEditCookie({{ cookie|json_encode|e('html_attr') }})">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <form method="post" action="{{ path('consentflow_cookie_delete', {id: cookie.id_cookie_def}) }}" style="display:inline" onsubmit="return confirm('Delete this cookie definition?')">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('consentflow') }}">
+                                    <button type="submit" class="cf-action-btn cf-action-btn--delete" title="Delete">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="cf-empty-state">
+                <i class="material-icons">cookie</i>
+                <p>{{ 'No cookie definitions yet.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                <button type="button" class="cf-btn cf-btn--primary" onclick="cfShowCookieForm()">
+                    <i class="material-icons">add</i> {{ 'Add first cookie'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {# Cookie form modal #}
+    <div id="cf-cookie-modal" class="cf-admin-modal" style="display:none">
+        <div class="cf-admin-modal__backdrop" onclick="cfCloseCookieForm()"></div>
+        <div class="cf-admin-modal__content">
+            <div class="cf-admin-modal__header">
+                <h3 id="cf-cookie-modal-title">{{ 'Add cookie definition'|trans({}, 'Modules.Consentflow.Admin') }}</h3>
+                <button type="button" class="cf-admin-modal__close" onclick="cfCloseCookieForm()">&times;</button>
+            </div>
+            <form method="post" action="{{ saveCookieUrl }}">
+                <input type="hidden" name="id_cookie_def" id="cf-cookie-id" value="0">
+                <input type="hidden" name="_token" value="{{ csrf_token('consentflow') }}">
+                <div class="cf-admin-modal__body">
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ 'Category'|trans({}, 'Admin.Global') }}</label>
+                        <select name="category" id="cf-cookie-category" class="cf-select">
+                            <option value="necessary">Necessary</option>
+                            <option value="analytics">Analytics</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="functional">Functional</option>
+                        </select>
+                    </div>
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ 'Cookie name'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                        <input type="text" name="cookie_name" id="cf-cookie-name" class="cf-input" required>
+                    </div>
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ 'Provider'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                        <input type="text" name="provider" id="cf-cookie-provider" class="cf-input">
+                    </div>
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ 'Duration'|trans({}, 'Modules.Consentflow.Admin') }}</label>
+                        <input type="text" name="duration" id="cf-cookie-duration" class="cf-input">
+                    </div>
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ 'Description'|trans({}, 'Admin.Global') }}</label>
+                        <div class="cf-form-control">
+                            {% if languages|length > 1 %}
+                            <div class="cf-lang-selector cf-lang-selector--modal">
+                                {% for lang in languages %}
+                                    <button type="button" class="cf-lang-btn cf-lang-btn--modal{% if lang.id_lang == currentLangId %} cf-lang-btn--active{% endif %}" data-lang-id="{{ lang.id_lang }}">
+                                        {{ lang.iso_code|upper }}
+                                    </button>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% for lang in languages %}
+                                <div class="cf-lang-field" data-lang-id="{{ lang.id_lang }}" {% if lang.id_lang != currentLangId %}style="display:none"{% endif %}>
+                                    <textarea name="description_{{ lang.id_lang }}" id="cf-cookie-desc-{{ lang.id_lang }}" class="cf-textarea" rows="2" placeholder="{{ lang.iso_code|upper }}"></textarea>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="cf-form-group">
+                        <label class="cf-label">{{ 'Position'|trans({}, 'Admin.Global') }}</label>
+                        <input type="number" name="position" id="cf-cookie-position" class="cf-input cf-input--sm" value="0" min="0">
+                    </div>
+                </div>
+                <div class="cf-admin-modal__footer">
+                    <button type="button" class="cf-btn cf-btn--secondary" onclick="cfCloseCookieForm()">{{ 'Cancel'|trans({}, 'Admin.Actions') }}</button>
+                    <button type="submit" class="cf-btn cf-btn--primary">
+                        <i class="material-icons">save</i> {{ 'Save'|trans({}, 'Admin.Actions') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {# ============================================================
+       TAB 4: CONSENT LOG
+       ============================================================ #}
+    </div>{# /cookies panel #}
+
+    <div data-cf-panel="logs" style="display:none">
+    <div class="cf-card">
+        <div class="cf-card__header cf-card__header--flex">
+            <span><i class="material-icons">history</i> {{ 'Consent Log'|trans({}, 'Modules.Consentflow.Admin') }} ({{ logCount }})</span>
+            <div class="cf-header-actions">
+                <a href="{{ exportLogsUrl }}" class="cf-btn cf-btn--outline cf-btn--sm" id="cf-export-btn">
+                    <i class="material-icons">download</i> {{ 'Export CSV'|trans({}, 'Modules.Consentflow.Admin') }}
+                </a>
+                <form method="post" action="{{ purgeLogsUrl }}" style="display:inline" onsubmit="return confirm('Purge old logs?')">
+                    <input type="hidden" name="_token" value="{{ csrf_token('consentflow') }}">
+                    <button type="submit" class="cf-btn cf-btn--secondary cf-btn--sm">
+                        <i class="material-icons">delete_sweep</i> {{ 'Purge old'|trans({}, 'Modules.Consentflow.Admin') }}
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="cf-card__body">
+            {# Filters #}
+            <div class="cf-filter-bar">
+                <div class="cf-filter-group">
+                    <label>{{ 'From'|trans({}, 'Admin.Global') }}:</label>
+                    <input type="date" id="cf-log-date-from" class="cf-input cf-input--sm">
+                </div>
+                <div class="cf-filter-group">
+                    <label>{{ 'To'|trans({}, 'Admin.Global') }}:</label>
+                    <input type="date" id="cf-log-date-to" class="cf-input cf-input--sm">
+                </div>
+                <div class="cf-filter-group">
+                    <label>{{ 'Action'|trans({}, 'Admin.Global') }}:</label>
+                    <select id="cf-log-action-filter" class="cf-select cf-select--sm">
+                        <option value="">{{ 'All'|trans({}, 'Admin.Global') }}</option>
+                        <option value="accept_all">Accept All</option>
+                        <option value="reject_all">Reject All</option>
+                        <option value="custom">Custom</option>
+                        <option value="update">Update</option>
+                        <option value="revoke">Revoke</option>
+                    </select>
+                </div>
+                <button type="button" class="cf-btn cf-btn--primary cf-btn--sm" onclick="cfLoadLogs(1)">
+                    <i class="material-icons">search</i> {{ 'Filter'|trans({}, 'Modules.Consentflow.Admin') }}
+                </button>
+            </div>
+
+            {# Logs table (loaded via AJAX) #}
+            <div id="cf-logs-container">
+                <div class="cf-loading">{{ 'Loading...'|trans({}, 'Admin.Global') }}</div>
+            </div>
+
+            {# Pagination #}
+            <div id="cf-logs-pagination" class="cf-pagination" style="display:none"></div>
+        </div>
+    </div>
+    </div>{# /logs panel #}
+
+    {# ============================================================
+       TAB 5: SUPPORT THE AUTHOR
+       ============================================================ #}
+    <div data-cf-panel="support" style="display:none">
+
+        {# ── Hero ── #}
+        <div class="cf-card cf-support-hero">
+            <div class="cf-support-hero__icon"><i class="material-icons">verified_user</i></div>
+            <h1 class="cf-support-hero__title">ConsentFlow</h1>
+            <span class="cf-support-hero__version">v{{ moduleVersion }}</span>
+            <p class="cf-support-hero__tagline">
+                {{ 'GDPR cookie consent management with Google Consent Mode v2 for PrestaShop.'|trans({}, 'Modules.Consentflow.Admin') }}
+            </p>
+        </div>
+
+        {# ── Features ── #}
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">star</i> {{ 'Features'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                <div class="cf-support-features">
+                    <div class="cf-support-feature">
+                        <div class="cf-support-feature__icon"><i class="material-icons">verified</i></div>
+                        <div>
+                            <h4>{{ 'Google Consent Mode v2'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                            <p>{{ 'Native gtag consent signals, emitted server-side and updated on every choice.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        </div>
+                    </div>
+                    <div class="cf-support-feature">
+                        <div class="cf-support-feature__icon"><i class="material-icons">assignment_turned_in</i></div>
+                        <div>
+                            <h4>{{ 'GDPR consent log'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                            <p>{{ 'Every consent stored with timestamp, IP and policy version — exportable to CSV.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        </div>
+                    </div>
+                    <div class="cf-support-feature">
+                        <div class="cf-support-feature__icon"><i class="material-icons">palette</i></div>
+                        <div>
+                            <h4>{{ 'Customizable banner'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                            <p>{{ 'Bottom, top or center position, with your own colors, radius and texts.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        </div>
+                    </div>
+                    <div class="cf-support-feature">
+                        <div class="cf-support-feature__icon"><i class="material-icons">web_asset</i></div>
+                        <div>
+                            <h4>{{ 'Iframe blocking'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                            <p>{{ 'YouTube, Google Maps and social embeds are blocked until consent is given.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        </div>
+                    </div>
+                    <div class="cf-support-feature">
+                        <div class="cf-support-feature__icon"><i class="material-icons">translate</i></div>
+                        <div>
+                            <h4>{{ 'Multi-language'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                            <p>{{ 'Every banner and modal text is editable per language.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        </div>
+                    </div>
+                    <div class="cf-support-feature">
+                        <div class="cf-support-feature__icon"><i class="material-icons">science</i></div>
+                        <div>
+                            <h4>{{ 'A/B testing'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                            <p>{{ 'Compare banner positions to find the one with the best acceptance rate.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# ── Getting help ── #}
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">help_outline</i> {{ 'Getting help'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                <div class="cf-support-help">
+                    <div class="cf-support-help__item">
+                        <div class="cf-support-help__icon cf-support-help__icon--blue"><i class="material-icons">menu_book</i></div>
+                        <h4>{{ 'Documentation'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                        <p>{{ 'Setup guides and integration notes on the GitHub Wiki.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        <a href="{{ githubWikiUrl }}" target="_blank" rel="noopener" class="cf-btn cf-btn--outline cf-btn--full">
+                            <i class="material-icons">menu_book</i> {{ 'Read the Wiki'|trans({}, 'Modules.Consentflow.Admin') }}
+                        </a>
+                    </div>
+                    <div class="cf-support-help__item">
+                        <div class="cf-support-help__icon cf-support-help__icon--purple"><i class="material-icons">bug_report</i></div>
+                        <h4>{{ 'GitHub Issues'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                        <p>{{ 'Report a bug or request a new feature.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        <a href="{{ githubIssuesUrl }}" target="_blank" rel="noopener" class="cf-btn cf-btn--outline cf-btn--full">
+                            <i class="material-icons">bug_report</i> {{ 'Open an issue'|trans({}, 'Modules.Consentflow.Admin') }}
+                        </a>
+                    </div>
+                    <div class="cf-support-help__item">
+                        <div class="cf-support-help__icon cf-support-help__icon--green"><i class="material-icons">forum</i></div>
+                        <h4>{{ 'Discussions'|trans({}, 'Modules.Consentflow.Admin') }}</h4>
+                        <p>{{ 'Ask questions and share ideas with the community.'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                        <a href="{{ githubDiscussionsUrl }}" target="_blank" rel="noopener" class="cf-btn cf-btn--outline cf-btn--full">
+                            <i class="material-icons">forum</i> {{ 'Join the discussion'|trans({}, 'Modules.Consentflow.Admin') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {# ── Support the author ── #}
+        <div class="cf-card cf-support-cta">
+            <div class="cf-support-cta__inner">
+                <h3>{{ 'Support the author'|trans({}, 'Modules.Consentflow.Admin') }}</h3>
+                <p>{{ 'ConsentFlow is free and open-source. If it saves you time, consider supporting its development — thank you!'|trans({}, 'Modules.Consentflow.Admin') }}</p>
+                <div class="cf-support-cta__buttons">
+                    <a href="{{ buymeacoffeeUrl }}" target="_blank" rel="noopener" class="cf-btn cf-btn--coffee">
+                        <i class="material-icons">local_cafe</i> {{ 'Buy me a coffee'|trans({}, 'Modules.Consentflow.Admin') }}
+                    </a>
+                    <a href="{{ githubRepoUrl }}" target="_blank" rel="noopener" class="cf-btn cf-btn--outline">
+                        <i class="material-icons">star</i> {{ 'Star on GitHub'|trans({}, 'Modules.Consentflow.Admin') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {# ── System information ── #}
+        <div class="cf-card">
+            <div class="cf-card__header">
+                <i class="material-icons">info</i> {{ 'System information'|trans({}, 'Modules.Consentflow.Admin') }}
+            </div>
+            <div class="cf-card__body">
+                <div class="cf-support-sysinfo">
+                    <div class="cf-support-sysinfo__row">
+                        <span class="cf-support-sysinfo__label"><i class="material-icons">check_circle</i> {{ 'PrestaShop version'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                        <span class="cf-support-sysinfo__value">{{ psVersion }}</span>
+                    </div>
+                    <div class="cf-support-sysinfo__row">
+                        <span class="cf-support-sysinfo__label"><i class="material-icons">check_circle</i> {{ 'PHP version'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                        <span class="cf-support-sysinfo__value">{{ phpVersion }}</span>
+                    </div>
+                    <div class="cf-support-sysinfo__row">
+                        <span class="cf-support-sysinfo__label"><i class="material-icons">check_circle</i> {{ 'Module version'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                        <span class="cf-support-sysinfo__value">{{ moduleVersion }}</span>
+                    </div>
+                    <div class="cf-support-sysinfo__row">
+                        <span class="cf-support-sysinfo__label"><i class="material-icons">check_circle</i> {{ 'Module author'|trans({}, 'Modules.Consentflow.Admin') }}</span>
+                        <span class="cf-support-sysinfo__value">{{ moduleAuthor }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>{# /support panel #}
+
+</div>
+
+<script>
+/* ── Color picker sync ── */
+document.querySelectorAll('.cf-color-input').forEach(function(colorInput) {
+    var textInput = colorInput.parentElement.querySelector('.cf-color-text');
+    if (textInput) {
+        colorInput.addEventListener('input', function() { textInput.value = this.value; });
+        textInput.addEventListener('input', function() {
+            if (/^#[0-9a-fA-F]{6}$/.test(this.value)) colorInput.value = this.value;
+        });
+    }
+});
+
+/* ── Language switcher (scoped to parent container) ── */
+document.querySelectorAll('.cf-lang-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var langId = this.dataset.langId;
+        // Scope: find the closest container (either .cf-lang-selector parent or whole page)
+        var scope = this.closest('.cf-admin-modal__body') || this.closest('.cf-module-wrapper');
+        if (!scope) return;
+        // Update active button within same selector group
+        var selector = this.closest('.cf-lang-selector');
+        if (selector) {
+            selector.querySelectorAll('.cf-lang-btn').forEach(function(b) { b.classList.remove('cf-lang-btn--active'); });
+        }
+        this.classList.add('cf-lang-btn--active');
+        // Toggle fields within scope
+        scope.querySelectorAll('.cf-lang-field').forEach(function(f) {
+            f.style.display = f.dataset.langId == langId ? '' : 'none';
+        });
+    });
+});
+
+/* ── Cookie definition modal ── */
+function cfShowCookieForm() {
+    document.getElementById('cf-cookie-modal').style.display = '';
+    document.getElementById('cf-cookie-modal-title').textContent = 'Add cookie definition';
+    document.getElementById('cf-cookie-id').value = '0';
+    document.getElementById('cf-cookie-category').value = 'necessary';
+    document.getElementById('cf-cookie-name').value = '';
+    document.getElementById('cf-cookie-provider').value = '';
+    document.getElementById('cf-cookie-duration').value = '';
+    document.getElementById('cf-cookie-position').value = '0';
+    document.querySelectorAll('[id^="cf-cookie-desc-"]').forEach(function(t) { t.value = ''; });
+}
+
+/* Cookie descriptions per lang — injected from PHP */
+var cfCookieDescriptions = JSON.parse('{{ cookieDescriptions|default({})|json_encode|e('js') }}');
+
+function cfEditCookie(cookie) {
+    document.getElementById('cf-cookie-modal').style.display = '';
+    document.getElementById('cf-cookie-modal-title').textContent = 'Edit cookie definition';
+    document.getElementById('cf-cookie-id').value = cookie.id_cookie_def;
+    document.getElementById('cf-cookie-category').value = cookie.category;
+    document.getElementById('cf-cookie-name').value = cookie.cookie_name;
+    document.getElementById('cf-cookie-provider').value = cookie.provider || '';
+    document.getElementById('cf-cookie-duration').value = cookie.duration || '';
+    document.getElementById('cf-cookie-position').value = cookie.position || '0';
+    // Fill descriptions for all languages
+    var descs = cfCookieDescriptions[cookie.id_cookie_def] || {};
+    document.querySelectorAll('[id^="cf-cookie-desc-"]').forEach(function(t) {
+        var langId = t.id.replace('cf-cookie-desc-', '');
+        t.value = descs[langId] || '';
+    });
+}
+
+function cfCloseCookieForm() {
+    document.getElementById('cf-cookie-modal').style.display = 'none';
+}
+
+/* ── Consent Logs (AJAX) ── */
+var cfLogsUrl = '{{ logsUrl }}';
+var cfExportUrl = '{{ exportLogsUrl }}';
+
+function cfLoadLogs(page) {
+    var params = new URLSearchParams();
+    params.set('page', page || 1);
+    var dateFrom = document.getElementById('cf-log-date-from');
+    var dateTo = document.getElementById('cf-log-date-to');
+    var actionFilter = document.getElementById('cf-log-action-filter');
+    if (dateFrom && dateFrom.value) params.set('date_from', dateFrom.value);
+    if (dateTo && dateTo.value) params.set('date_to', dateTo.value);
+    if (actionFilter && actionFilter.value) params.set('action_filter', actionFilter.value);
+
+    var logsSep = cfLogsUrl.indexOf('?') > -1 ? '&' : '?';
+    var exportSep = cfExportUrl.indexOf('?') > -1 ? '&' : '?';
+
+    // Update export link
+    var exportBtn = document.getElementById('cf-export-btn');
+    if (exportBtn) exportBtn.href = cfExportUrl + exportSep + params.toString();
+
+    var container = document.getElementById('cf-logs-container');
+    container.innerHTML = '<div class="cf-loading">Loading...</div>';
+
+    fetch(cfLogsUrl + logsSep + params.toString())
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (!data.logs || data.logs.length === 0) {
+                container.innerHTML = '<div class="cf-empty-state"><i class="material-icons">inbox</i><p>No logs found.</p></div>';
+                document.getElementById('cf-logs-pagination').style.display = 'none';
+                return;
+            }
+
+            var html = '<table class="cf-table"><thead><tr>';
+            html += '<th>ID</th><th>Date</th><th>Customer</th><th>Action</th>';
+            html += '<th>Analytics</th><th>Marketing</th><th>Functional</th>';
+            html += '<th>Policy</th><th>A/B</th><th>IP</th></tr></thead><tbody>';
+
+            /* Escape HTML to prevent XSS from database values */
+            function esc(str) {
+                if (!str) return '';
+                var d = document.createElement('div');
+                d.appendChild(document.createTextNode(String(str)));
+                return d.innerHTML;
+            }
+
+            data.logs.forEach(function(log) {
+                var customer = log.firstname ? (esc(log.firstname) + ' ' + esc(log.lastname)) : ('Guest #' + esc(log.id_guest || '?'));
+                var actionSafe = esc(log.action);
+                var actionClass = 'cf-action-badge cf-action-badge--' + actionSafe;
+                html += '<tr>';
+                html += '<td><span class="cf-id-badge">' + esc(log.id_consent_log) + '</span></td>';
+                html += '<td>' + esc(log.date_add) + '</td>';
+                html += '<td>' + customer + '</td>';
+                html += '<td><span class="' + actionClass + '">' + actionSafe + '</span></td>';
+                html += '<td>' + (log.consent_analytics == 1 ? '<span class="cf-consent-yes">&#10003;</span>' : '<span class="cf-consent-no">&#10007;</span>') + '</td>';
+                html += '<td>' + (log.consent_marketing == 1 ? '<span class="cf-consent-yes">&#10003;</span>' : '<span class="cf-consent-no">&#10007;</span>') + '</td>';
+                html += '<td>' + (log.consent_functional == 1 ? '<span class="cf-consent-yes">&#10003;</span>' : '<span class="cf-consent-no">&#10007;</span>') + '</td>';
+                html += '<td>v' + esc(log.policy_version) + '</td>';
+                html += '<td>' + esc(log.ab_variant || '—') + '</td>';
+                html += '<td>' + esc(log.ip_address || '') + '</td>';
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            container.innerHTML = html;
+
+            // Pagination
+            var pag = document.getElementById('cf-logs-pagination');
+            if (data.pages > 1) {
+                var ph = '<span class="cf-pagination__info">' + data.total + ' records, page ' + data.page + '/' + data.pages + '</span>';
+                ph += '<div class="cf-pagination__buttons">';
+                if (data.page > 1) ph += '<button class="cf-btn cf-btn--outline cf-btn--sm" onclick="cfLoadLogs(' + (data.page - 1) + ')">Prev</button>';
+                if (data.page < data.pages) ph += '<button class="cf-btn cf-btn--outline cf-btn--sm" onclick="cfLoadLogs(' + (data.page + 1) + ')">Next</button>';
+                ph += '</div>';
+                pag.innerHTML = ph;
+                pag.style.display = '';
+            } else {
+                pag.style.display = 'none';
+            }
+        })
+        .catch(function(err) {
+            container.innerHTML = '<div class="cf-empty-state"><i class="material-icons">error</i><p>Error loading logs.</p></div>';
+        });
+}
+
+/* ── Tab switching (JS-based, no page reload) ── */
+var cfLogsLoaded = false;
+document.querySelectorAll('.cf-tab[data-cf-tab]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var tab = this.dataset.cfTab;
+        // Update active tab button
+        document.querySelectorAll('.cf-tab[data-cf-tab]').forEach(function(b) { b.classList.remove('cf-tab-active'); });
+        this.classList.add('cf-tab-active');
+        // Show/hide panels
+        document.querySelectorAll('[data-cf-panel]').forEach(function(p) {
+            p.style.display = p.dataset.cfPanel === tab ? '' : 'none';
+        });
+        // Lazy-load logs on first visit to logs tab
+        if (tab === 'logs' && !cfLogsLoaded) {
+            cfLogsLoaded = true;
+            cfLoadLogs(1);
+        }
+        // Update URL hash for bookmarking
+        history.replaceState(null, '', '#' + tab);
+    });
+});
+
+// Restore tab from URL hash on page load
+(function() {
+    var hash = window.location.hash.replace('#', '');
+    if (hash) {
+        var btn = document.querySelector('.cf-tab[data-cf-tab="' + hash + '"]');
+        if (btn) btn.click();
+    }
+})();
+</script>
+{% endblock %}

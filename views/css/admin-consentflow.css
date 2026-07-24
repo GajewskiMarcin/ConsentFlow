@@ -1,0 +1,1134 @@
+/**
+ * ConsentFlow — Modern Admin UI
+ * Based on WiseBlock Figma V2 design system
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+    --cf-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --cf-primary: #6366f1;
+    --cf-primary-dark: #4f46e5;
+    --cf-purple: #a855f7;
+    --cf-green: #10b981;
+    --cf-green-light: #d1fae5;
+    --cf-red: #ef4444;
+    --cf-red-light: #fee2e2;
+    --cf-blue: #3b82f6;
+    --cf-blue-light: #dbeafe;
+    --cf-orange: #f59e0b;
+    --cf-orange-light: #fef3c7;
+    --cf-gray-50: #f9fafb;
+    --cf-gray-100: #f3f4f6;
+    --cf-gray-200: #e5e7eb;
+    --cf-gray-300: #d1d5db;
+    --cf-gray-400: #9ca3af;
+    --cf-gray-500: #6b7280;
+    --cf-gray-600: #4b5563;
+    --cf-gray-700: #374151;
+    --cf-gray-900: #111827;
+    --cf-gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+}
+
+/* ============================================
+   MODULE WRAPPER
+   ============================================ */
+.cf-module-wrapper {
+    font-family: var(--cf-font);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cf-module-wrapper *:not(i):not([class*="material-icons"]) {
+    font-family: inherit;
+}
+
+/* ============================================
+   NAVIGATION TABS
+   ============================================ */
+.cf-tabs-container {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--cf-gray-200);
+    border-radius: 12px;
+    padding: 6px;
+    margin-bottom: 24px;
+    gap: 4px;
+}
+
+.cf-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cf-gray-500);
+    background: transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.cf-tab i.material-icons {
+    font-size: 18px;
+}
+
+.cf-tab:hover {
+    color: var(--cf-gray-700);
+    background: var(--cf-gray-50);
+    text-decoration: none !important;
+}
+
+.cf-tab-active,
+.cf-tab-active:hover {
+    background: var(--cf-gradient-primary) !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+.cf-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--cf-gray-200);
+    color: var(--cf-gray-600);
+}
+
+.cf-tab-active .cf-badge {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+}
+
+/* ============================================
+   ALERT / FLASH MESSAGES
+   ============================================ */
+.cf-alert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.cf-alert--success {
+    background: var(--cf-green-light);
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.cf-alert--error {
+    background: var(--cf-red-light);
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.cf-alert__close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    line-height: 1;
+}
+
+.cf-alert__close:hover {
+    opacity: 1;
+}
+
+/* ============================================
+   CARDS
+   ============================================ */
+.cf-card {
+    background: #fff;
+    border: 1px solid var(--cf-gray-200);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.cf-card__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cf-gray-900);
+    border-bottom: 1px solid var(--cf-gray-200);
+    background: var(--cf-gray-50);
+}
+
+.cf-card__header i.material-icons {
+    font-size: 20px;
+    color: var(--cf-primary);
+}
+
+.cf-card__header--flex {
+    justify-content: space-between;
+}
+
+.cf-card__body {
+    padding: 24px;
+}
+
+.cf-card__body--no-padding {
+    padding: 0;
+}
+
+.cf-card__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 24px;
+    border-top: 1px solid var(--cf-gray-200);
+    background: var(--cf-gray-50);
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+.cf-form-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--cf-gray-100);
+}
+
+.cf-form-group:last-child {
+    border-bottom: none;
+}
+
+.cf-label {
+    flex: 0 0 220px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cf-gray-700);
+    padding-top: 10px;
+}
+
+.cf-form-control {
+    flex: 1;
+    position: relative;
+}
+
+.cf-input,
+.cf-textarea,
+.cf-select {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 1px solid var(--cf-gray-300);
+    border-radius: 10px;
+    background: var(--cf-gray-50);
+    color: var(--cf-gray-900);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.cf-input:focus,
+.cf-textarea:focus,
+.cf-select:focus {
+    border-color: var(--cf-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    background: #fff;
+}
+
+.cf-input--sm {
+    max-width: 200px;
+}
+
+.cf-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+.cf-select--sm {
+    max-width: 200px;
+}
+
+.cf-textarea {
+    resize: vertical;
+    min-height: 60px;
+    font-family: var(--cf-font);
+}
+
+.cf-form-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--cf-gray-400);
+}
+
+/* ============================================
+   TOGGLE SWITCH
+   ============================================ */
+.cf-toggle {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.cf-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.cf-toggle__slider {
+    position: absolute;
+    inset: 0;
+    background: var(--cf-gray-300);
+    border-radius: 24px;
+    transition: background 0.3s ease;
+}
+
+.cf-toggle__slider::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+.cf-toggle input:checked + .cf-toggle__slider {
+    background: var(--cf-primary);
+}
+
+.cf-toggle input:checked + .cf-toggle__slider::before {
+    transform: translateX(20px);
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+.cf-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--cf-font);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none !important;
+    white-space: nowrap;
+}
+
+.cf-btn i.material-icons {
+    font-size: 18px;
+}
+
+.cf-btn--primary {
+    background: var(--cf-gradient-primary);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+}
+
+.cf-btn--primary:hover {
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+    transform: translateY(-1px);
+    color: #fff;
+}
+
+.cf-btn--secondary {
+    background: var(--cf-gray-100);
+    color: var(--cf-gray-700);
+}
+
+.cf-btn--secondary:hover {
+    background: var(--cf-gray-200);
+    color: var(--cf-gray-900);
+}
+
+.cf-btn--outline {
+    background: transparent;
+    color: var(--cf-primary);
+    border: 1px solid var(--cf-primary);
+}
+
+.cf-btn--outline:hover {
+    background: rgba(99, 102, 241, 0.05);
+    color: var(--cf-primary-dark);
+}
+
+.cf-btn--sm {
+    padding: 7px 14px;
+    font-size: 13px;
+}
+
+.cf-btn--sm i.material-icons {
+    font-size: 16px;
+}
+
+/* ============================================
+   TABLE
+   ============================================ */
+.cf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.cf-table thead th {
+    padding: 14px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--cf-gray-500);
+    background: var(--cf-gray-50);
+    border-bottom: 1px solid var(--cf-gray-200);
+}
+
+.cf-table tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--cf-gray-100);
+    color: var(--cf-gray-700);
+}
+
+.cf-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.cf-table tbody tr:hover {
+    background: var(--cf-gray-50);
+}
+
+/* ============================================
+   BADGES
+   ============================================ */
+.cf-id-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 26px;
+    padding: 0 8px;
+    background: var(--cf-gray-100);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cf-gray-600);
+}
+
+.cf-category-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.cf-category-badge--necessary {
+    background: var(--cf-blue-light);
+    color: #1e40af;
+}
+
+.cf-category-badge--analytics {
+    background: var(--cf-green-light);
+    color: #065f46;
+}
+
+.cf-category-badge--marketing {
+    background: var(--cf-orange-light);
+    color: #92400e;
+}
+
+.cf-category-badge--functional {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.cf-action-badge {
+    display: inline-flex;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.cf-action-badge--accept_all {
+    background: var(--cf-green-light);
+    color: #065f46;
+}
+
+.cf-action-badge--reject_all {
+    background: var(--cf-red-light);
+    color: #991b1b;
+}
+
+.cf-action-badge--custom {
+    background: var(--cf-blue-light);
+    color: #1e40af;
+}
+
+.cf-action-badge--update {
+    background: var(--cf-orange-light);
+    color: #92400e;
+}
+
+.cf-action-badge--revoke {
+    background: var(--cf-gray-100);
+    color: var(--cf-gray-600);
+}
+
+.cf-consent-yes {
+    color: var(--cf-green);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.cf-consent-no {
+    color: var(--cf-red);
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* ============================================
+   ACTION BUTTONS (table row)
+   ============================================ */
+.cf-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.cf-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    color: var(--cf-gray-500);
+    transition: all 0.2s;
+}
+
+.cf-action-btn:hover {
+    background: var(--cf-gray-100);
+    color: var(--cf-gray-900);
+}
+
+.cf-action-btn--delete:hover {
+    background: var(--cf-red-light);
+    color: var(--cf-red);
+}
+
+.cf-action-btn i.material-icons {
+    font-size: 18px;
+}
+
+/* ============================================
+   LANGUAGE SELECTOR
+   ============================================ */
+.cf-lang-selector {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid var(--cf-gray-200);
+    border-radius: 10px;
+    padding: 4px;
+    width: fit-content;
+}
+
+.cf-lang-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--cf-font);
+    cursor: pointer;
+    background: transparent;
+    color: var(--cf-gray-500);
+    transition: all 0.2s;
+}
+
+.cf-lang-btn:hover {
+    background: var(--cf-gray-50);
+    color: var(--cf-gray-700);
+}
+
+.cf-lang-btn--active {
+    background: var(--cf-gradient-primary) !important;
+    color: #fff !important;
+}
+
+.cf-lang-selector--modal {
+    margin-bottom: 10px;
+}
+
+.cf-lang-field {
+    position: relative;
+}
+
+.cf-lang-indicator {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cf-gray-400);
+    pointer-events: none;
+}
+
+/* ============================================
+   FILTER BAR
+   ============================================ */
+.cf-filter-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.cf-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cf-filter-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--cf-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cf-header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* ============================================
+   PAGINATION
+   ============================================ */
+.cf-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    margin-top: 8px;
+}
+
+.cf-pagination__info {
+    font-size: 13px;
+    color: var(--cf-gray-500);
+}
+
+.cf-pagination__buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+.cf-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 24px;
+    text-align: center;
+}
+
+.cf-empty-state i.material-icons {
+    font-size: 56px;
+    color: var(--cf-gray-300);
+    margin-bottom: 16px;
+}
+
+.cf-empty-state p {
+    font-size: 15px;
+    color: var(--cf-gray-500);
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   LOADING INDICATOR
+   ============================================ */
+.cf-loading {
+    text-align: center;
+    padding: 40px;
+    color: var(--cf-gray-400);
+    font-size: 14px;
+}
+
+/* ============================================
+   ADMIN MODAL (Cookie form)
+   ============================================ */
+.cf-admin-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cf-admin-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+.cf-admin-modal__content {
+    position: relative;
+    background: #fff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 580px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.cf-admin-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--cf-gray-200);
+}
+
+.cf-admin-modal__header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--cf-gray-900);
+    margin: 0;
+}
+
+.cf-admin-modal__close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--cf-gray-400);
+    line-height: 1;
+    padding: 4px;
+}
+
+.cf-admin-modal__close:hover {
+    color: var(--cf-gray-700);
+}
+
+.cf-admin-modal__body {
+    padding: 24px;
+}
+
+.cf-admin-modal__body .cf-form-group {
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cf-admin-modal__body .cf-form-control,
+.cf-admin-modal__body .cf-textarea,
+.cf-admin-modal__body .cf-input,
+.cf-admin-modal__body .cf-select {
+    width: 100%;
+    max-width: 100%;
+}
+
+.cf-admin-modal__body .cf-label {
+    flex: none;
+    padding-top: 0;
+}
+
+.cf-admin-modal__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--cf-gray-200);
+    background: var(--cf-gray-50);
+    border-radius: 0 0 16px 16px;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .cf-tabs-container {
+        flex-wrap: wrap;
+    }
+
+    .cf-tab {
+        flex: 1 1 45%;
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .cf-form-group {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .cf-label {
+        flex: none;
+        padding-top: 0;
+    }
+
+    .cf-input--sm,
+    .cf-select--sm {
+        max-width: 100%;
+    }
+
+    .cf-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cf-card__header--flex {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .cf-header-actions {
+        width: 100%;
+    }
+}
+
+/* ============================================
+   COLOR PICKER ROW
+   ============================================ */
+.cf-color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cf-color-input {
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--cf-gray-200);
+    border-radius: 10px;
+    padding: 2px;
+    cursor: pointer;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.cf-color-input::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.cf-color-input::-webkit-color-swatch {
+    border: none;
+    border-radius: 7px;
+}
+
+.cf-color-input::-moz-color-swatch {
+    border: none;
+    border-radius: 7px;
+}
+
+.cf-color-text {
+    max-width: 120px !important;
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.cf-color-row .cf-form-hint {
+    flex-basis: 100%;
+}
+
+/* ============================================
+   SUPPORT / ABOUT TAB
+   ============================================ */
+.cf-support-hero {
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.cf-support-hero__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: var(--cf-gradient-primary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cf-support-hero__icon i.material-icons {
+    font-size: 42px;
+    color: #fff;
+}
+
+.cf-support-hero__title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--cf-gray-900);
+    margin: 0 0 12px;
+}
+
+.cf-support-hero__version {
+    display: inline-block;
+    padding: 6px 14px;
+    margin-bottom: 16px;
+    background: var(--cf-gradient-primary);
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cf-support-hero__tagline {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cf-gray-500);
+}
+
+/* Features grid */
+.cf-support-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.cf-support-feature {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: var(--cf-gray-50);
+    border-radius: 12px;
+}
+
+.cf-support-feature__icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    background: var(--cf-blue-light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cf-support-feature__icon i.material-icons {
+    font-size: 24px;
+    color: var(--cf-primary);
+}
+
+.cf-support-feature h4 {
+    margin: 0 0 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cf-gray-900);
+}
+
+.cf-support-feature p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--cf-gray-500);
+}
+
+/* Getting help grid */
+.cf-support-help {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cf-support-help__item {
+    text-align: center;
+    padding: 32px 20px;
+    background: var(--cf-gray-50);
+    border-radius: 12px;
+}
+
+.cf-support-help__icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cf-support-help__icon i.material-icons {
+    font-size: 26px;
+}
+
+.cf-support-help__icon--blue {
+    background: var(--cf-blue-light);
+}
+
+.cf-support-help__icon--blue i.material-icons {
+    color: var(--cf-blue);
+}
+
+.cf-support-help__icon--purple {
+    background: #f3e8ff;
+}
+
+.cf-support-help__icon--purple i.material-icons {
+    color: var(--cf-purple);
+}
+
+.cf-support-help__icon--green {
+    background: var(--cf-green-light);
+}
+
+.cf-support-help__icon--green i.material-icons {
+    color: var(--cf-green);
+}
+
+.cf-support-help__item h4 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cf-gray-900);
+}
+
+.cf-support-help__item p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--cf-gray-500);
+}
+
+.cf-btn--full {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Support the author CTA */
+.cf-support-cta {
+    background: linear-gradient(135deg, #eef2ff 0%, #faf5ff 100%);
+}
+
+.cf-support-cta__inner {
+    text-align: center;
+    padding: 48px 24px;
+}
+
+.cf-support-cta__inner h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cf-gray-900);
+}
+
+.cf-support-cta__inner p {
+    max-width: 560px;
+    margin: 0 auto 28px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--cf-gray-600);
+}
+
+.cf-support-cta__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.cf-btn--coffee {
+    background: var(--cf-orange);
+    color: #fff;
+}
+
+.cf-btn--coffee:hover {
+    background: #d97706;
+    color: #fff;
+}
+
+/* System information */
+.cf-support-sysinfo {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.cf-support-sysinfo__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px;
+    background: var(--cf-gray-50);
+    border-radius: 10px;
+}
+
+.cf-support-sysinfo__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cf-gray-700);
+}
+
+.cf-support-sysinfo__label i.material-icons {
+    font-size: 18px;
+    color: var(--cf-green);
+}
+
+.cf-support-sysinfo__value {
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-size: 13px;
+    padding: 4px 10px;
+    background: var(--cf-gray-200);
+    border-radius: 6px;
+    color: var(--cf-gray-700);
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .cf-support-features,
+    .cf-support-help,
+    .cf-support-sysinfo {
+        grid-template-columns: 1fr;
+    }
+}

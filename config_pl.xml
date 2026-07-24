@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>consentflow</name>
+    <displayName><![CDATA[ConsentFlow &mdash; Zgody na cookies]]></displayName>
+    <version><![CDATA[1.0.3]]></version>
+    <description><![CDATA[Moduł zg&oacute;d na cookies zgodny z GDPR/ePrivacy ze wsparciem Google Consent Mode v2.]]></description>
+    <author><![CDATA[Flavor]]></author>
+    <tab><![CDATA[front_office_features]]></tab>
+    <is_configurable>1</is_configurable>
+    <need_instance>0</need_instance>
+</module>
