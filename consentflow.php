@@ -21,14 +21,14 @@ class ConsentFlow extends Module
 {
     /** @var array Default cookie definitions pre-populated on install */
     private const DEFAULT_COOKIES = [
-        ['category' => 'necessary', 'cookie_name' => 'PrestaShop-*', 'provider' => 'PrestaShop', 'duration' => 'Session', 'description_pl' => 'Ciasteczka sesyjne wymagane do działania sklepu.', 'description_en' => 'Session cookies required for the store to function.'],
-        ['category' => 'necessary', 'cookie_name' => 'flavor_cookie_consent', 'provider' => 'ConsentFlow', 'duration' => '1 rok', 'description_pl' => 'Przechowuje Twoje wybory dotyczące zgód na cookies.', 'description_en' => 'Stores your cookie consent choices.'],
-        ['category' => 'analytics', 'cookie_name' => '_ga', 'provider' => 'Google Analytics', 'duration' => '2 lata', 'description_pl' => 'Rozróżnia użytkowników w Google Analytics.', 'description_en' => 'Distinguishes users in Google Analytics.'],
-        ['category' => 'analytics', 'cookie_name' => '_ga_*', 'provider' => 'Google Analytics', 'duration' => '2 lata', 'description_pl' => 'Utrzymuje stan sesji w Google Analytics 4.', 'description_en' => 'Maintains session state in Google Analytics 4.'],
-        ['category' => 'analytics', 'cookie_name' => '_gid', 'provider' => 'Google Analytics', 'duration' => '24 godziny', 'description_pl' => 'Rozróżnia użytkowników w ciągu 24h.', 'description_en' => 'Distinguishes users within 24 hours.'],
-        ['category' => 'marketing', 'cookie_name' => '_gcl_au', 'provider' => 'Google Ads', 'duration' => '90 dni', 'description_pl' => 'Przechowuje dane konwersji Google Ads.', 'description_en' => 'Stores Google Ads conversion data.'],
-        ['category' => 'marketing', 'cookie_name' => '_fbp', 'provider' => 'Meta Pixel', 'duration' => '90 dni', 'description_pl' => 'Identyfikuje przeglądarkę dla reklam Meta.', 'description_en' => 'Identifies browser for Meta advertising.'],
-        ['category' => 'marketing', 'cookie_name' => 'IDE', 'provider' => 'Google DoubleClick', 'duration' => '1 rok', 'description_pl' => 'Służy do targetowania i mierzenia reklam.', 'description_en' => 'Used for ad targeting and measurement.'],
+        ['category' => 'necessary', 'cookie_name' => 'PrestaShop-*', 'provider' => 'PrestaShop', 'duration' => 'Session', 'description_pl' => 'Ciasteczka sesyjne wymagane do działania sklepu.', 'description_en' => 'Session cookies required for the store to function.', 'description_cs' => 'Relační cookies nutné pro fungování obchodu.'],
+        ['category' => 'necessary', 'cookie_name' => 'flavor_cookie_consent', 'provider' => 'ConsentFlow', 'duration' => '1 rok', 'description_pl' => 'Przechowuje Twoje wybory dotyczące zgód na cookies.', 'description_en' => 'Stores your cookie consent choices.', 'description_cs' => 'Ukládá vaše volby souhlasu s cookies.'],
+        ['category' => 'analytics', 'cookie_name' => '_ga', 'provider' => 'Google Analytics', 'duration' => '2 lata', 'description_pl' => 'Rozróżnia użytkowników w Google Analytics.', 'description_en' => 'Distinguishes users in Google Analytics.', 'description_cs' => 'Rozlišuje uživatele v Google Analytics.'],
+        ['category' => 'analytics', 'cookie_name' => '_ga_*', 'provider' => 'Google Analytics', 'duration' => '2 lata', 'description_pl' => 'Utrzymuje stan sesji w Google Analytics 4.', 'description_en' => 'Maintains session state in Google Analytics 4.', 'description_cs' => 'Udržuje stav relace v Google Analytics 4.'],
+        ['category' => 'analytics', 'cookie_name' => '_gid', 'provider' => 'Google Analytics', 'duration' => '24 godziny', 'description_pl' => 'Rozróżnia użytkowników w ciągu 24h.', 'description_en' => 'Distinguishes users within 24 hours.', 'description_cs' => 'Rozlišuje uživatele v rámci 24 hodin.'],
+        ['category' => 'marketing', 'cookie_name' => '_gcl_au', 'provider' => 'Google Ads', 'duration' => '90 dni', 'description_pl' => 'Przechowuje dane konwersji Google Ads.', 'description_en' => 'Stores Google Ads conversion data.', 'description_cs' => 'Ukládá data o konverzích Google Ads.'],
+        ['category' => 'marketing', 'cookie_name' => '_fbp', 'provider' => 'Meta Pixel', 'duration' => '90 dni', 'description_pl' => 'Identyfikuje przeglądarkę dla reklam Meta.', 'description_en' => 'Identifies browser for Meta advertising.', 'description_cs' => 'Identifikuje prohlížeč pro reklamy Meta.'],
+        ['category' => 'marketing', 'cookie_name' => 'IDE', 'provider' => 'Google DoubleClick', 'duration' => '1 rok', 'description_pl' => 'Służy do targetowania i mierzenia reklam.', 'description_en' => 'Used for ad targeting and measurement.', 'description_cs' => 'Slouží k cílení a měření reklamy.'],
     ];
 
     /** @var array Default configuration values */
@@ -86,31 +86,31 @@ class ConsentFlow extends Module
         'CONSENTFLOW_TABLE_DESCRIPTION',
     ];
 
-    /** @var array Default texts: key => [pl, en] */
+    /** @var array Default texts: key => [pl, en, cs] */
     private const DEFAULT_TEXTS = [
-        'CONSENTFLOW_BANNER_TITLE' => ['Szanujemy Twoją prywatność', 'We respect your privacy'],
-        'CONSENTFLOW_BANNER_TEXT' => ['Używamy plików cookies, aby zapewnić najlepszą jakość korzystania z naszej strony. Wybierz, które cookies chcesz zaakceptować.', 'We use cookies to ensure the best experience on our website. Choose which cookies you want to accept.'],
-        'CONSENTFLOW_BTN_ACCEPT_ALL' => ['Akceptuję wszystkie', 'Accept all'],
-        'CONSENTFLOW_BTN_REJECT_ALL' => ['Odrzuć wszystkie', 'Reject all'],
-        'CONSENTFLOW_BTN_PREFERENCES' => ['Ustawienia', 'Preferences'],
-        'CONSENTFLOW_BTN_SAVE' => ['Zapisz preferencje', 'Save preferences'],
-        'CONSENTFLOW_CAT_NECESSARY_TITLE' => ['Niezbędne', 'Necessary'],
-        'CONSENTFLOW_CAT_NECESSARY_DESC' => ['Wymagane do działania strony. Nie można ich wyłączyć.', 'Required for the website to function. Cannot be disabled.'],
-        'CONSENTFLOW_CAT_ANALYTICS_TITLE' => ['Analityczne', 'Analytics'],
-        'CONSENTFLOW_CAT_ANALYTICS_DESC' => ['Pomagają nam zrozumieć, jak użytkownicy korzystają ze strony.', 'Help us understand how visitors use the website.'],
-        'CONSENTFLOW_CAT_MARKETING_TITLE' => ['Marketingowe', 'Marketing'],
-        'CONSENTFLOW_CAT_MARKETING_DESC' => ['Służą do wyświetlania spersonalizowanych reklam.', 'Used to display personalized advertisements.'],
-        'CONSENTFLOW_CAT_FUNCTIONAL_TITLE' => ['Funkcjonalne', 'Functional'],
-        'CONSENTFLOW_CAT_FUNCTIONAL_DESC' => ['Zapamiętują Twoje preferencje, np. język i walutę.', 'Remember your preferences like language and currency.'],
-        'CONSENTFLOW_FLOAT_BTN_LABEL' => ['Ustawienia cookies', 'Cookie settings'],
-        'CONSENTFLOW_PRIVACY_LINK_TEXT' => ['Polityka prywatności', 'Privacy policy'],
-        'CONSENTFLOW_IFRAME_PLACEHOLDER_TEXT' => ['Ta treść wymaga zgody na cookies marketingowe.', 'This content requires marketing cookie consent.'],
-        'CONSENTFLOW_IFRAME_PLACEHOLDER_BTN' => ['Zaakceptuj i wyświetl', 'Accept and show'],
-        'CONSENTFLOW_CAT_ALWAYS_ACTIVE' => ['Zawsze aktywne', 'Always active'],
-        'CONSENTFLOW_TABLE_COOKIE' => ['Ciasteczko', 'Cookie'],
-        'CONSENTFLOW_TABLE_PROVIDER' => ['Dostawca', 'Provider'],
-        'CONSENTFLOW_TABLE_DURATION' => ['Czas', 'Duration'],
-        'CONSENTFLOW_TABLE_DESCRIPTION' => ['Opis', 'Description'],
+        'CONSENTFLOW_BANNER_TITLE' => ['Szanujemy Twoją prywatność', 'We respect your privacy', 'Respektujeme vaše soukromí'],
+        'CONSENTFLOW_BANNER_TEXT' => ['Używamy plików cookies, aby zapewnić najlepszą jakość korzystania z naszej strony. Wybierz, które cookies chcesz zaakceptować.', 'We use cookies to ensure the best experience on our website. Choose which cookies you want to accept.', 'Používáme soubory cookies, abychom vám zajistili co nejlepší zážitek z našeho webu. Vyberte, které cookies chcete povolit.'],
+        'CONSENTFLOW_BTN_ACCEPT_ALL' => ['Akceptuję wszystkie', 'Accept all', 'Přijmout vše'],
+        'CONSENTFLOW_BTN_REJECT_ALL' => ['Odrzuć wszystkie', 'Reject all', 'Odmítnout vše'],
+        'CONSENTFLOW_BTN_PREFERENCES' => ['Ustawienia', 'Preferences', 'Nastavení'],
+        'CONSENTFLOW_BTN_SAVE' => ['Zapisz preferencje', 'Save preferences', 'Uložit nastavení'],
+        'CONSENTFLOW_CAT_NECESSARY_TITLE' => ['Niezbędne', 'Necessary', 'Nezbytné'],
+        'CONSENTFLOW_CAT_NECESSARY_DESC' => ['Wymagane do działania strony. Nie można ich wyłączyć.', 'Required for the website to function. Cannot be disabled.', 'Nutné pro fungování webu. Nelze je vypnout.'],
+        'CONSENTFLOW_CAT_ANALYTICS_TITLE' => ['Analityczne', 'Analytics', 'Analytické'],
+        'CONSENTFLOW_CAT_ANALYTICS_DESC' => ['Pomagają nam zrozumieć, jak użytkownicy korzystają ze strony.', 'Help us understand how visitors use the website.', 'Pomáhají nám pochopit, jak návštěvníci web používají.'],
+        'CONSENTFLOW_CAT_MARKETING_TITLE' => ['Marketingowe', 'Marketing', 'Marketingové'],
+        'CONSENTFLOW_CAT_MARKETING_DESC' => ['Służą do wyświetlania spersonalizowanych reklam.', 'Used to display personalized advertisements.', 'Slouží k zobrazování personalizované reklamy.'],
+        'CONSENTFLOW_CAT_FUNCTIONAL_TITLE' => ['Funkcjonalne', 'Functional', 'Funkční'],
+        'CONSENTFLOW_CAT_FUNCTIONAL_DESC' => ['Zapamiętują Twoje preferencje, np. język i walutę.', 'Remember your preferences like language and currency.', 'Pamatují si vaše volby, např. jazyk a měnu.'],
+        'CONSENTFLOW_FLOAT_BTN_LABEL' => ['Ustawienia cookies', 'Cookie settings', 'Nastavení cookies'],
+        'CONSENTFLOW_PRIVACY_LINK_TEXT' => ['Polityka prywatności', 'Privacy policy', 'Zásady ochrany osobních údajů'],
+        'CONSENTFLOW_IFRAME_PLACEHOLDER_TEXT' => ['Ta treść wymaga zgody na cookies marketingowe.', 'This content requires marketing cookie consent.', 'Tento obsah vyžaduje souhlas s marketingovými cookies.'],
+        'CONSENTFLOW_IFRAME_PLACEHOLDER_BTN' => ['Zaakceptuj i wyświetl', 'Accept and show', 'Přijmout a zobrazit'],
+        'CONSENTFLOW_CAT_ALWAYS_ACTIVE' => ['Zawsze aktywne', 'Always active', 'Vždy aktivní'],
+        'CONSENTFLOW_TABLE_COOKIE' => ['Ciasteczko', 'Cookie', 'Cookie'],
+        'CONSENTFLOW_TABLE_PROVIDER' => ['Dostawca', 'Provider', 'Poskytovatel'],
+        'CONSENTFLOW_TABLE_DURATION' => ['Czas', 'Duration', 'Platnost'],
+        'CONSENTFLOW_TABLE_DESCRIPTION' => ['Opis', 'Description', 'Popis'],
     ];
 
     public function __construct()
@@ -248,7 +248,7 @@ class ConsentFlow extends Module
         $iso = strtolower((string) $this->context->language->iso_code);
         foreach (['CONSENTFLOW_CAT_ALWAYS_ACTIVE', 'CONSENTFLOW_TABLE_COOKIE', 'CONSENTFLOW_TABLE_PROVIDER', 'CONSENTFLOW_TABLE_DURATION', 'CONSENTFLOW_TABLE_DESCRIPTION'] as $key) {
             if ((string) ($texts[$key] ?? '') === '' && isset(self::DEFAULT_TEXTS[$key])) {
-                $texts[$key] = ($iso === 'pl') ? self::DEFAULT_TEXTS[$key][0] : self::DEFAULT_TEXTS[$key][1];
+                $texts[$key] = self::pickDefault($iso, self::DEFAULT_TEXTS[$key]);
             }
         }
 
@@ -453,6 +453,21 @@ class ConsentFlow extends Module
         return true;
     }
 
+    /**
+     * Pick the bundled default text for a language ISO code: [pl, en, cs].
+     */
+    private static function pickDefault(string $iso, array $defaults): string
+    {
+        if ($iso === 'pl') {
+            return (string) $defaults[0];
+        }
+        if ($iso === 'cs' && isset($defaults[2])) {
+            return (string) $defaults[2];
+        }
+
+        return (string) $defaults[1];
+    }
+
     private function installTexts(): bool
     {
         $languages = Language::getLanguages(false);
@@ -461,8 +476,8 @@ class ConsentFlow extends Module
             $values = [];
             foreach ($languages as $lang) {
                 $iso = strtolower($lang['iso_code']);
-                // Use Polish text for PL, English for everything else
-                $values[(int) $lang['id_lang']] = ($iso === 'pl') ? $defaults[0] : $defaults[1];
+                // Polish for PL, Czech for CS, English for everything else
+                $values[(int) $lang['id_lang']] = self::pickDefault($iso, $defaults);
             }
             if (!Configuration::updateValue($key, $values)) {
                 return false;
@@ -492,7 +507,7 @@ class ConsentFlow extends Module
 
             foreach ($languages as $lang) {
                 $iso = strtolower($lang['iso_code']);
-                $desc = ($iso === 'pl') ? $cookie['description_pl'] : $cookie['description_en'];
+                $desc = $cookie['description_' . $iso] ?? $cookie['description_en'];
                 $db->insert('consentflow_cookie_definition_lang', [
                     'id_cookie_def' => $defId,
                     'id_lang' => (int) $lang['id_lang'],
