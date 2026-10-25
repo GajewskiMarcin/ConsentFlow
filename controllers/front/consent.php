@@ -165,5 +165,6 @@ class ConsentFlowConsentModuleFrontController extends ModuleFrontController
         header('Content-Type: application/json');
         header('Cache-Control: no-store');
         $this->ajaxRender(json_encode($data));
+        exit;
     }
 }
