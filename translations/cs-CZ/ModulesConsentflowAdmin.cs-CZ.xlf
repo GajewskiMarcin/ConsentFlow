@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="cs-CZ" datatype="plaintext" original="modules/consentflow">
+    <body>
+      <!-- Tabs -->
+      <trans-unit id="settings">
+        <source>Settings</source>
+        <target>Nastavení</target>
+      </trans-unit>
+      <trans-unit id="texts">
+        <source>Texts</source>
+        <target>Texty</target>
+      </trans-unit>
+      <trans-unit id="cookie_definitions">
+        <source>Cookie Definitions</source>
+        <target>Definice cookies</target>
+      </trans-unit>
+      <trans-unit id="consent_log">
+        <source>Consent Log</source>
+        <target>Log souhlasů</target>
+      </trans-unit>
+
+      <!-- Settings: General -->
+      <trans-unit id="general_settings">
+        <source>General Settings</source>
+        <target>Obecné nastavení</target>
+      </trans-unit>
+      <trans-unit id="enable_module">
+        <source>Enable module</source>
+        <target>Zapnout modul</target>
+      </trans-unit>
+      <trans-unit id="master_switch_hint">
+        <source>Master switch — when off, no banner is shown and no assets are loaded.</source>
+        <target>Hlavní vypínač — když je vypnutý, lišta se nezobrazuje a nenačítají se žádné soubory.</target>
+      </trans-unit>
+      <trans-unit id="policy_version">
+        <source>Policy version</source>
+        <target>Verze zásad</target>
+      </trans-unit>
+      <trans-unit id="policy_version_hint">
+        <source>Increment to force all users to re-consent.</source>
+        <target>Zvyšte číslo, pokud chcete, aby všichni uživatelé udělili souhlas znovu.</target>
+      </trans-unit>
+      <trans-unit id="cookie_lifetime">
+        <source>Cookie lifetime (days)</source>
+        <target>Platnost cookie (dny)</target>
+      </trans-unit>
+      <trans-unit id="banner_position">
+        <source>Banner position</source>
+        <target>Pozice lišty</target>
+      </trans-unit>
+      <trans-unit id="show_floating_button">
+        <source>Show floating button</source>
+        <target>Zobrazit plovoucí tlačítko</target>
+      </trans-unit>
+      <trans-unit id="floating_button_position">
+        <source>Floating button position</source>
+        <target>Pozice plovoucího tlačítka</target>
+      </trans-unit>
+      <trans-unit id="google_consent_mode">
+        <source>Google Consent Mode v2</source>
+        <target>Google Consent Mode v2</target>
+      </trans-unit>
+      <trans-unit id="google_consent_hint">
+        <source>Fire gtag("consent","update",...) on every consent change.</source>
+        <target>Při každé změně souhlasu odeslat gtag("consent","update",...).</target>
+      </trans-unit>
+      <trans-unit id="show_functional">
+        <source>Show Functional category</source>
+        <target>Zobrazit kategorii Funkční</target>
+      </trans-unit>
+      <trans-unit id="show_functional_hint">
+        <source>When off, functional cookies are bundled with necessary.</source>
+        <target>Když je vypnuto, funkční cookies se sloučí s nezbytnými.</target>
+      </trans-unit>
+
+      <!-- Settings: Logging -->
+      <trans-unit id="logging_compliance">
+        <source>Logging &amp; Compliance</source>
+        <target>Logování a compliance</target>
+      </trans-unit>
+      <trans-unit id="log_consent_db">
+        <source>Log consent to database</source>
+        <target>Ukládat souhlasy do databáze</target>
+      </trans-unit>
+      <trans-unit id="log_retention">
+        <source>Log retention (days)</source>
+        <target>Doba uchování logu (dny)</target>
+      </trans-unit>
+      <trans-unit id="log_retention_hint">
+        <source>Logs older than this are automatically purged. Default: 730 days (2 years).</source>
+        <target>Starší záznamy se automaticky mažou. Výchozí: 730 dní (2 roky).</target>
+      </trans-unit>
+      <trans-unit id="privacy_policy_page">
+        <source>Privacy policy page</source>
+        <target>Stránka se zásadami ochrany osobních údajů</target>
+      </trans-unit>
+      <trans-unit id="save_settings">
+        <source>Save settings</source>
+        <target>Uložit nastavení</target>
+      </trans-unit>
+
+      <!-- Settings: Appearance -->
+      <trans-unit id="appearance">
+        <source>Appearance</source>
+        <target>Vzhled</target>
+      </trans-unit>
+      <trans-unit id="primary_color">
+        <source>Primary color</source>
+        <target>Hlavní barva</target>
+      </trans-unit>
+      <trans-unit id="primary_color_hint">
+        <source>Accept button, toggles, links.</source>
+        <target>Tlačítko Přijmout, přepínače, odkazy.</target>
+      </trans-unit>
+      <trans-unit id="primary_hover">
+        <source>Primary hover</source>
+        <target>Hlavní barva (hover)</target>
+      </trans-unit>
+      <trans-unit id="background_color">
+        <source>Background color</source>
+        <target>Barva pozadí</target>
+      </trans-unit>
+      <trans-unit id="text_color">
+        <source>Text color</source>
+        <target>Barva textu</target>
+      </trans-unit>
+      <trans-unit id="button_text_color">
+        <source>Button text color</source>
+        <target>Barva textu tlačítek</target>
+      </trans-unit>
+      <trans-unit id="border_radius">
+        <source>Border radius (px)</source>
+        <target>Zaoblení rohů (px)</target>
+      </trans-unit>
+
+      <!-- Settings: Iframe Blocking -->
+      <trans-unit id="iframe_blocking">
+        <source>Iframe Blocking</source>
+        <target>Blokování iframe</target>
+      </trans-unit>
+      <trans-unit id="block_iframes">
+        <source>Block iframes until consent</source>
+        <target>Blokovat iframe do udělení souhlasu</target>
+      </trans-unit>
+      <trans-unit id="block_iframes_hint">
+        <source>Replace YouTube, Google Maps, and social embeds with a placeholder until marketing cookies are accepted. Iframes must have data-consentflow="marketing" attribute.</source>
+        <target>Nahradit YouTube, Google Maps a sociální vložení zástupným blokem, dokud nejsou přijaty marketingové cookies. Iframe musí mít atribut data-consentflow="marketing".</target>
+      </trans-unit>
+
+      <!-- Settings: A/B Testing -->
+      <trans-unit id="ab_testing">
+        <source>A/B Testing</source>
+        <target>A/B testování</target>
+      </trans-unit>
+      <trans-unit id="enable_ab">
+        <source>Enable A/B testing</source>
+        <target>Zapnout A/B testování</target>
+      </trans-unit>
+      <trans-unit id="enable_ab_hint">
+        <source>Randomly show banner in variant A (normal position) or B (alternative) to compare acceptance rates.</source>
+        <target>Náhodně zobrazovat lištu ve variantě A (běžná pozice) nebo B (alternativní) a porovnat míru přijetí.</target>
+      </trans-unit>
+      <trans-unit id="variant_a_position">
+        <source>Variant A position</source>
+        <target>Pozice varianty A</target>
+      </trans-unit>
+      <trans-unit id="variant_a_hint">
+        <source>Uses the main Banner position setting above.</source>
+        <target>Používá hlavní nastavení pozice lišty výše.</target>
+      </trans-unit>
+      <trans-unit id="variant_b_position">
+        <source>Variant B position</source>
+        <target>Pozice varianty B</target>
+      </trans-unit>
+      <trans-unit id="traffic_split">
+        <source>Traffic split (% for variant A)</source>
+        <target>Rozdělení provozu (% pro variantu A)</target>
+      </trans-unit>
+      <trans-unit id="traffic_split_hint">
+        <source>50 = equal split. 70 = 70% variant A, 30% variant B.</source>
+        <target>50 = rovnoměrně. 70 = 70 % varianta A, 30 % varianta B.</target>
+      </trans-unit>
+
+      <!-- Texts tab -->
+      <trans-unit id="banner_texts">
+        <source>Banner Texts</source>
+        <target>Texty lišty</target>
+      </trans-unit>
+      <trans-unit id="category_texts">
+        <source>Category Texts</source>
+        <target>Texty kategorií</target>
+      </trans-unit>
+      <trans-unit id="save_texts">
+        <source>Save texts</source>
+        <target>Uložit texty</target>
+      </trans-unit>
+      <trans-unit id="banner_title_label">
+        <source>Banner title</source>
+        <target>Titulek lišty</target>
+      </trans-unit>
+      <trans-unit id="banner_text_label">
+        <source>Banner text</source>
+        <target>Text lišty</target>
+      </trans-unit>
+      <trans-unit id="accept_all_button">
+        <source>Accept All button</source>
+        <target>Tlačítko Přijmout vše</target>
+      </trans-unit>
+      <trans-unit id="reject_all_button">
+        <source>Reject All button</source>
+        <target>Tlačítko Odmítnout vše</target>
+      </trans-unit>
+      <trans-unit id="preferences_button">
+        <source>Preferences button</source>
+        <target>Tlačítko Nastavení</target>
+      </trans-unit>
+      <trans-unit id="save_preferences_button">
+        <source>Save preferences button</source>
+        <target>Tlačítko Uložit nastavení</target>
+      </trans-unit>
+      <trans-unit id="floating_button_label">
+        <source>Floating button label</source>
+        <target>Popisek plovoucího tlačítka</target>
+      </trans-unit>
+      <trans-unit id="privacy_link_text">
+        <source>Privacy policy link text</source>
+        <target>Text odkazu na zásady ochrany osobních údajů</target>
+      </trans-unit>
+      <trans-unit id="iframe_placeholder_text">
+        <source>Iframe placeholder text</source>
+        <target>Text zástupného bloku iframe</target>
+      </trans-unit>
+      <trans-unit id="iframe_placeholder_btn">
+        <source>Iframe placeholder button</source>
+        <target>Tlačítko zástupného bloku iframe</target>
+      </trans-unit>
+      <trans-unit id="necessary_title">
+        <source>Necessary — title</source>
+        <target>Nezbytné — název</target>
+      </trans-unit>
+      <trans-unit id="necessary_desc">
+        <source>Necessary — description</source>
+        <target>Nezbytné — popis</target>
+      </trans-unit>
+      <trans-unit id="analytics_title">
+        <source>Analytics — title</source>
+        <target>Analytické — název</target>
+      </trans-unit>
+      <trans-unit id="analytics_desc">
+        <source>Analytics — description</source>
+        <target>Analytické — popis</target>
+      </trans-unit>
+      <trans-unit id="marketing_title">
+        <source>Marketing — title</source>
+        <target>Marketingové — název</target>
+      </trans-unit>
+      <trans-unit id="marketing_desc">
+        <source>Marketing — description</source>
+        <target>Marketingové — popis</target>
+      </trans-unit>
+      <trans-unit id="functional_title">
+        <source>Functional — title</source>
+        <target>Funkční — název</target>
+      </trans-unit>
+      <trans-unit id="functional_desc">
+        <source>Functional — description</source>
+        <target>Funkční — popis</target>
+      </trans-unit>
+      <trans-unit id="cookie_table_and_badges">
+        <source>Cookie Table &amp; Badges</source>
+        <target>Tabulka cookies a štítky</target>
+      </trans-unit>
+      <trans-unit id="always_active_badge">
+        <source>Always-active badge</source>
+        <target>Štítek Vždy aktivní</target>
+      </trans-unit>
+      <trans-unit id="table_cookie_column">
+        <source>Cookie table — Cookie column</source>
+        <target>Tabulka cookies — sloupec Cookie</target>
+      </trans-unit>
+      <trans-unit id="table_provider_column">
+        <source>Cookie table — Provider column</source>
+        <target>Tabulka cookies — sloupec Poskytovatel</target>
+      </trans-unit>
+      <trans-unit id="table_duration_column">
+        <source>Cookie table — Duration column</source>
+        <target>Tabulka cookies — sloupec Platnost</target>
+      </trans-unit>
+      <trans-unit id="table_description_column">
+        <source>Cookie table — Description column</source>
+        <target>Tabulka cookies — sloupec Popis</target>
+      </trans-unit>
+
+      <!-- Cookie Definitions tab -->
+      <trans-unit id="cookie_name">
+        <source>Cookie name</source>
+        <target>Název cookie</target>
+      </trans-unit>
+      <trans-unit id="provider">
+        <source>Provider</source>
+        <target>Poskytovatel</target>
+      </trans-unit>
+      <trans-unit id="duration">
+        <source>Duration</source>
+        <target>Platnost</target>
+      </trans-unit>
+      <trans-unit id="add_cookie">
+        <source>Add cookie</source>
+        <target>Přidat cookie</target>
+      </trans-unit>
+      <trans-unit id="add_first_cookie">
+        <source>Add first cookie</source>
+        <target>Přidat první cookie</target>
+      </trans-unit>
+      <trans-unit id="no_cookie_defs">
+        <source>No cookie definitions yet.</source>
+        <target>Zatím žádné definice cookies.</target>
+      </trans-unit>
+      <trans-unit id="add_cookie_definition">
+        <source>Add cookie definition</source>
+        <target>Přidat definici cookie</target>
+      </trans-unit>
+
+      <!-- Consent Log tab -->
+      <trans-unit id="export_csv">
+        <source>Export CSV</source>
+        <target>Export CSV</target>
+      </trans-unit>
+      <trans-unit id="purge_old">
+        <source>Purge old</source>
+        <target>Smazat staré</target>
+      </trans-unit>
+      <trans-unit id="filter">
+        <source>Filter</source>
+        <target>Filtr</target>
+      </trans-unit>
+
+      <!-- Flash messages -->
+      <trans-unit id="settings_saved">
+        <source>Settings saved.</source>
+        <target>Nastavení uloženo.</target>
+      </trans-unit>
+      <trans-unit id="texts_saved">
+        <source>Texts saved.</source>
+        <target>Texty uloženy.</target>
+      </trans-unit>
+      <trans-unit id="cookie_def_saved">
+        <source>Cookie definition saved.</source>
+        <target>Definice cookie uložena.</target>
+      </trans-unit>
+      <trans-unit id="cookie_def_deleted">
+        <source>Cookie definition deleted.</source>
+        <target>Definice cookie smazána.</target>
+      </trans-unit>
+      <trans-unit id="cookie_def_not_found">
+        <source>Cookie definition not found.</source>
+        <target>Definice cookie nenalezena.</target>
+      </trans-unit>
+      <trans-unit id="cookie_name_required">
+        <source>Cookie name is required.</source>
+        <target>Název cookie je povinný.</target>
+      </trans-unit>
+      <trans-unit id="purge_result">
+        <source>Purged %count% old log entries.</source>
+        <target>Smazáno %count% starých záznamů logu.</target>
+      </trans-unit>
+
+      <!-- Module meta -->
+      <trans-unit id="module_display_name">
+        <source>ConsentFlow — Cookie Consent</source>
+        <target>ConsentFlow — souhlas s cookies</target>
+      </trans-unit>
+      <trans-unit id="module_description">
+        <source>GDPR/ePrivacy compliant cookie consent module with Google Consent Mode v2 support.</source>
+        <target>Modul pro souhlas s cookies dle GDPR/ePrivacy s podporou Google Consent Mode v2.</target>
+      </trans-unit>
+
+      <!-- Support the author tab -->
+      <trans-unit id="support_the_author">
+        <source>Support the author</source>
+        <target>Podpořte autora</target>
+      </trans-unit>
+      <trans-unit id="support_tagline">
+        <source>GDPR cookie consent management with Google Consent Mode v2 for PrestaShop.</source>
+        <target>Správa souhlasu s cookies dle GDPR s Google Consent Mode v2 pro PrestaShop.</target>
+      </trans-unit>
+      <trans-unit id="support_features">
+        <source>Features</source>
+        <target>Funkce</target>
+      </trans-unit>
+      <trans-unit id="support_feat_gcm_desc">
+        <source>Native gtag consent signals, emitted server-side and updated on every choice.</source>
+        <target>Nativní signály gtag consent, odesílané ze serveru a aktualizované při každé volbě.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_log">
+        <source>GDPR consent log</source>
+        <target>Log souhlasů GDPR</target>
+      </trans-unit>
+      <trans-unit id="support_feat_log_desc">
+        <source>Every consent stored with timestamp, IP and policy version — exportable to CSV.</source>
+        <target>Každý souhlas uložen s časem, IP a verzí zásad — export do CSV.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_banner">
+        <source>Customizable banner</source>
+        <target>Přizpůsobitelná lišta</target>
+      </trans-unit>
+      <trans-unit id="support_feat_banner_desc">
+        <source>Bottom, top or center position, with your own colors, radius and texts.</source>
+        <target>Pozice dole, nahoře nebo uprostřed, vlastní barvy, zaoblení a texty.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_iframe">
+        <source>Iframe blocking</source>
+        <target>Blokování iframe</target>
+      </trans-unit>
+      <trans-unit id="support_feat_iframe_desc">
+        <source>YouTube, Google Maps and social embeds are blocked until consent is given.</source>
+        <target>YouTube, Google Maps a sociální vložení jsou blokovány do udělení souhlasu.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_multilang">
+        <source>Multi-language</source>
+        <target>Vícejazyčnost</target>
+      </trans-unit>
+      <trans-unit id="support_feat_multilang_desc">
+        <source>Every banner and modal text is editable per language.</source>
+        <target>Každý text lišty i okna lze upravit pro každý jazyk.</target>
+      </trans-unit>
+      <trans-unit id="support_feat_ab">
+        <source>A/B testing</source>
+        <target>A/B testování</target>
+      </trans-unit>
+      <trans-unit id="support_feat_ab_desc">
+        <source>Compare banner positions to find the one with the best acceptance rate.</source>
+        <target>Porovnejte pozice lišty a najděte tu s nejvyšší mírou přijetí.</target>
+      </trans-unit>
+      <trans-unit id="support_getting_help">
+        <source>Getting help</source>
+        <target>Nápověda</target>
+      </trans-unit>
+      <trans-unit id="support_documentation">
+        <source>Documentation</source>
+        <target>Dokumentace</target>
+      </trans-unit>
+      <trans-unit id="support_documentation_desc">
+        <source>Setup guides and integration notes on the GitHub Wiki.</source>
+        <target>Návody a poznámky k integraci na GitHub Wiki.</target>
+      </trans-unit>
+      <trans-unit id="support_read_wiki">
+        <source>Read the Wiki</source>
+        <target>Otevřít Wiki</target>
+      </trans-unit>
+      <trans-unit id="support_github_issues">
+        <source>GitHub Issues</source>
+        <target>GitHub Issues</target>
+      </trans-unit>
+      <trans-unit id="support_github_issues_desc">
+        <source>Report a bug or request a new feature.</source>
+        <target>Nahlásit chybu nebo navrhnout funkci.</target>
+      </trans-unit>
+      <trans-unit id="support_open_issue">
+        <source>Open an issue</source>
+        <target>Založit issue</target>
+      </trans-unit>
+      <trans-unit id="support_discussions">
+        <source>Discussions</source>
+        <target>Diskuze</target>
+      </trans-unit>
+      <trans-unit id="support_discussions_desc">
+        <source>Ask questions and share ideas with the community.</source>
+        <target>Ptejte se a sdílejte nápady s komunitou.</target>
+      </trans-unit>
+      <trans-unit id="support_join_discussion">
+        <source>Join the discussion</source>
+        <target>Zapojit se do diskuze</target>
+      </trans-unit>
+      <trans-unit id="support_cta_desc">
+        <source>ConsentFlow is free and open-source. If it saves you time, consider supporting its development — thank you!</source>
+        <target>ConsentFlow je zdarma a open-source. Pokud vám šetří čas, zvažte podporu vývoje — děkujeme!</target>
+      </trans-unit>
+      <trans-unit id="support_buy_coffee">
+        <source>Buy me a coffee</source>
+        <target>Kupte mi kávu</target>
+      </trans-unit>
+      <trans-unit id="support_star_github">
+        <source>Star on GitHub</source>
+        <target>Hvězdička na GitHubu</target>
+      </trans-unit>
+      <trans-unit id="support_system_information">
+        <source>System information</source>
+        <target>Systémové informace</target>
+      </trans-unit>
+      <trans-unit id="support_ps_version">
+        <source>PrestaShop version</source>
+        <target>Verze PrestaShopu</target>
+      </trans-unit>
+      <trans-unit id="support_php_version">
+        <source>PHP version</source>
+        <target>Verze PHP</target>
+      </trans-unit>
+      <trans-unit id="support_module_version">
+        <source>Module version</source>
+        <target>Verze modulu</target>
+      </trans-unit>
+      <trans-unit id="support_module_author">
+        <source>Module author</source>
+        <target>Autor modulu</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

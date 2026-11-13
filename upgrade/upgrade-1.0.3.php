@@ -19,13 +19,13 @@ if (!defined('_PS_VERSION_')) {
 
 function upgrade_module_1_0_3(ConsentFlow $module): bool
 {
-    // key => [pl, en]
+    // key => [pl, en, cs]
     $defaults = [
-        'CONSENTFLOW_CAT_ALWAYS_ACTIVE' => ['Zawsze aktywne', 'Always active'],
-        'CONSENTFLOW_TABLE_COOKIE' => ['Ciasteczko', 'Cookie'],
-        'CONSENTFLOW_TABLE_PROVIDER' => ['Dostawca', 'Provider'],
-        'CONSENTFLOW_TABLE_DURATION' => ['Czas', 'Duration'],
-        'CONSENTFLOW_TABLE_DESCRIPTION' => ['Opis', 'Description'],
+        'CONSENTFLOW_CAT_ALWAYS_ACTIVE' => ['Zawsze aktywne', 'Always active', 'Vždy aktivní'],
+        'CONSENTFLOW_TABLE_COOKIE' => ['Ciasteczko', 'Cookie', 'Cookie'],
+        'CONSENTFLOW_TABLE_PROVIDER' => ['Dostawca', 'Provider', 'Poskytovatel'],
+        'CONSENTFLOW_TABLE_DURATION' => ['Czas', 'Duration', 'Platnost'],
+        'CONSENTFLOW_TABLE_DESCRIPTION' => ['Opis', 'Description', 'Popis'],
     ];
 
     $languages = Language::getLanguages(false);
@@ -46,8 +46,14 @@ function upgrade_module_1_0_3(ConsentFlow $module): bool
         $values = [];
         foreach ($languages as $lang) {
             $iso = strtolower($lang['iso_code']);
-            // Polish text for PL, English for everything else — mirrors install.
-            $values[(int) $lang['id_lang']] = ($iso === 'pl') ? $texts[0] : $texts[1];
+            // Polish for PL, Czech for CS, English for everything else — mirrors install.
+            if ($iso === 'pl') {
+                $values[(int) $lang['id_lang']] = $texts[0];
+            } elseif ($iso === 'cs' && isset($texts[2])) {
+                $values[(int) $lang['id_lang']] = $texts[2];
+            } else {
+                $values[(int) $lang['id_lang']] = $texts[1];
+            }
         }
         Configuration::updateValue($key, $values);
     }
