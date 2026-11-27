@@ -130,12 +130,14 @@ class ConsentFlowController extends FrameworkBundleAdminController
             'exportLogsUrl' => $this->generateUrl('consentflow_log_export'),
             'purgeLogsUrl' => $this->generateUrl('consentflow_log_purge'),
             'adminCssPath' => _MODULE_DIR_ . 'consentflow/views/css/admin-consentflow.css',
+            'quincePromoCssPath' => _MODULE_DIR_ . 'consentflow/views/css/quince-promo.css',
             // Support / About tab
             'githubRepoUrl' => 'https://github.com/GajewskiMarcin/ConsentFlow',
             'githubWikiUrl' => 'https://github.com/GajewskiMarcin/ConsentFlow/wiki',
             'githubIssuesUrl' => 'https://github.com/GajewskiMarcin/ConsentFlow/issues',
             'githubDiscussionsUrl' => 'https://github.com/GajewskiMarcin/ConsentFlow/discussions',
-            'buymeacoffeeUrl' => 'https://buymeacoffee.com/marcingajewski',
+            'kofiUrl' => 'https://ko-fi.com/quinceproject',
+            'quinceUrl' => 'https://github.com/quinceproject',
         ]);
     }
 

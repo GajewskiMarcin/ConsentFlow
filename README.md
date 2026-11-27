@@ -184,11 +184,15 @@ ConsentFlow is fully translatable. English is the source language and Polish tra
 
 ConsentFlow is **free and open-source**. If it saves you time or money, please consider supporting its development:
 
-- ☕ **[Buy me a coffee](https://buymeacoffee.com/marcingajewski)**
+- ☕ **[Support on Ko-fi](https://ko-fi.com/quinceproject)**
 - ⭐ **[Star the project on GitHub](https://github.com/GajewskiMarcin/ConsentFlow)**
 - 🐛 **[Report a bug or request a feature](https://github.com/GajewskiMarcin/ConsentFlow/issues)**
 
 Every coffee and every star helps keep the module maintained. Thank you!
+
+### From the same author
+
+**[Quince Project](https://quinceproject.github.io/)**: a theme and content engine for PrestaShop, extended with a suite of functional modules. Free and open source under OSL-3.0.
 
 ---
 

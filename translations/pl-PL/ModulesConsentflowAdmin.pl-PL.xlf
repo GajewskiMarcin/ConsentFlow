@@ -477,9 +477,29 @@
         <source>ConsentFlow is free and open-source. If it saves you time, consider supporting its development — thank you!</source>
         <target>ConsentFlow jest darmowy i open-source. Jeśli oszczędza Ci czas, rozważ wsparcie jego rozwoju — dziękuję!</target>
       </trans-unit>
-      <trans-unit id="support_buy_coffee">
-        <source>Buy me a coffee</source>
-        <target>Postaw mi kawę</target>
+      <trans-unit id="support_kofi">
+        <source>Support on Ko-fi</source>
+        <target>Wesprzyj na Ko-fi</target>
+      </trans-unit>
+      <trans-unit id="support_quince_lead">
+        <source>Discover the theme and engine for PrestaShop</source>
+        <target>Poznaj motyw i silnik do PrestaShop</target>
+      </trans-unit>
+      <trans-unit id="support_quince_text">
+        <source>A set of over 20 modules and a theme that let you freely manage the look and content of your shop and support back-office processes.</source>
+        <target>Zestaw ponad 20 modułów i motyw, pozwalających na swobodne zarządzanie wyglądem i treściami w sklepie oraz wspierających procesy backendowe.</target>
+      </trans-unit>
+      <trans-unit id="support_quince_download">
+        <source>Download for free from GitHub</source>
+        <target>Pobierz za darmo z GitHub</target>
+      </trans-unit>
+      <trans-unit id="support_quince_php">
+        <source>PHP 8.1 or newer</source>
+        <target>PHP 8.1 lub nowszy</target>
+      </trans-unit>
+      <trans-unit id="support_quince_licence">
+        <source>OSL-3.0 licence</source>
+        <target>Licencja OSL-3.0</target>
       </trans-unit>
       <trans-unit id="support_star_github">
         <source>Star on GitHub</source>
